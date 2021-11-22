@@ -1,0 +1,56 @@
+<!--
+
+    ,ad88888888ba,    8888888ba,    ,ad8888888          8          8888ba,    8888ba,
+    88    88    88    88      88    88                 888         88   88    88   88
+    88    88    88    8888888888    88                88888        888889'    888889'
+    88    88    88    88      88    88              88    888      88         88
+    88    88    88    888888889'    'q88888888     88       88     88         88
+
+
+    Copyright © 2021 iMBC. All rights reserved.
+
+-->
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta charset="utf-8">
+    <title>GO! MBC</title>
+    <meta name="description" content="MBC 공식 app" />
+    <meta property="og:title" content="MBC">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MBC">
+    <meta property="og:image" content="https://img.imbc.com/commons/2018/image/comm2018noti/meta_mbc.png">
+    <meta property="og:description" content="MBC 공식 app">
+    <meta name="robots" content="noindex,nofollow" />
+    
+    <link rel="stylesheet" href="https://m.imbc.com/include/css/swiper.min.css">
+    <script type="text/javascript" src="https://m.imbc.com/lib/jquery-2.1.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.4.3/vue-router.min.js"></script>
+    <script src="https://m.imbc.com/include/js/swiper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.10.2/underscore-min.js"></script>
+    
+    <!--Vue-main.js webpack 최푸름-->
+    <script type="module" src="dist/bundle_app.js"></script>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div id="siteContent"> 
+        <div id="accessibility">
+            <a href="#siteContent">본문 바로가기</a>
+        </div>
+        <h1 class="blind">MBC 홈</h1>
+        
+        <!-- gnb menu --> 
+        <gnb-menu></gnb-menu>
+
+        <!-- content -->
+        <router-view></router-view>
+        
+    </div>
+    <button type="button" class="scroll-top" id="scrollTop" style="display: none;">상단으로 이동</button>
+</body>
+</html>
