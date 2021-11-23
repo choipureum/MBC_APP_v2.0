@@ -19,7 +19,7 @@
 .category .sort{text-align:center;overflow: hidden;margin-bottom: 20px;}
 .category .sort li{position: relative;display: inline-block;padding: 0 9px 0 7px;line-height: 22px;}
 .category .sort li button{display: block;color: #959595;font-size: 16px;font-family: 'notokr-regular';line-height: 22px;}
-.category .sort li.on button{display: block;font-family: 'notokr-bold';color: #fff;width: 100%;position: relative;}
+.category .sort li.on button{display: block;font-family: 'notokr-bold';color: #fff;width: 100%;}
 .category .sort li:after{content: '';position: absolute;right: 0;top: 6px;width: 1px;height: 10px;background: #4b4b4b;}
 .category .sort li:last-child:after{background: none}
 .category .search {position: absolute;right: 5.5%;top: 41px;width: 23%;height: 25px;background: #3d4043;border-radius: 4px;overflow: hidden;}

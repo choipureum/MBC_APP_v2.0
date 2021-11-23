@@ -1,3 +1,5 @@
+<!--
+
 /**
  * @module entrypoint
  * @name newsVue.js
@@ -13,20 +15,13 @@
  * 
  * (c) 2021 iMBC
  */
-const commonCss = require('../../static/css/common.css');
-const subCss = require('../../static/css/sub.css');
- 
-import {checkMobile, getDateFormat, bannerDefaultImg} from "../common/common.js";
-import VueLazyload from 'vue-lazyload'
 
-Vue.use(VueLazyload, bannerDefaultImg('drama'));
-
-export default{
-    template: `     
-            <div class="wrap_news">
+-->
+<template>
+           <div class="wrap_news">
                 <!-- MBC NEWS -->    
                 <div v-if="newsList.main.length > 0" class="visual_top" :data-title="newsList.main[0].Title" v-on:click="clickInterface(newsList.main[0].Link)">
-                    <span class="img"><img src="./static/images/mbcnews_logo.png" alt="MBC 뉴스"></span>
+                    <span class="img"><img src="../../static/images/mbcnews_logo.png" alt="MBC 뉴스"></span>
                     <div class="news_top">
                         <a>
                             <img :src="newsList.main[0].Image" :alt="newsList.main[0].Title">
@@ -37,7 +32,7 @@ export default{
                     </div>
                 </div>
                 <div class="wrapper news_mid">
-                    <div class="half" v-for="(item,index) in newsList.half" v-on:click="clickInterface(item.Link)">
+                    <div class="half" v-for="(item,index) in newsList.half" v-on:click="clickInterface(item.Link)" :key='index'>
                         <a>
                             <img :src="item.Image" :alt="item.Title">
                             <span class="title ellipsis2" v-html="item.Title"></span>
@@ -46,22 +41,22 @@ export default{
                 </div>
                 <div class="wrapper news_list">
                     <ul>
-                        <li class="ellipsis" v-for="(item,index) in newsList.list" v-on:click="clickInterface(item.Link)"><a v-html="item.Title"></a></li>
+                        <li class="ellipsis" v-for="(item,index) in newsList.list" v-on:click="clickInterface(item.Link)" :key='index'><a v-html="item.Title"></a></li>
                     </ul>
                 </div>
 
                 <!--MBC NEWSDESK-->
                 <div class="newsdesk">
                     <div class="ch_info">
-                        <span class="img"><img src="./static/images/mbcnews_thumb.png" alt="뉴스데스크"></span>
+                        <span class="img"><img src="../../static/images/mbcnews_thumb.png" alt="뉴스데스크"></span>
                         <div class="txt_info">
                             <span class="title">뉴스데스크</span>
                             <span class="date">{{today}}</span>
                         </div>
                     </div>
-                    <div class="wrapper thumb_list">
+                    <div class="wrapper thumb_list" v-if="newsDeskList.length > 0">
                         <ul>
-                            <li v-if="newsDeskList.length > 0" :data-title="item.Title" v-on:click="clickInterface(item.Link)" v-for="(item,index) in newsDeskList.slice().reverse()">
+                            <li :data-title="item.Title" v-on:click="clickInterface(item.Link)" v-for="(item,index) in newsDeskList.slice().reverse()" :key='index'>
                                 <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.Image" :alt="item.Title"></span>
                                 <div>
                                     <span class="title ellipsis2" v-html="item.Title"></span> 
@@ -72,12 +67,15 @@ export default{
                     </div>
                 </div>
             </div>
-            `
-    ,
-    setup(){
+</template>
 
-    },
-    data() {
+<script>
+import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, bannerDefaultImg('drama'));
+
+export default{
+    data(){
         return{
             userAgent: "",
             today:"",
@@ -89,7 +87,7 @@ export default{
             newsDeskList:[]
         }
     },
-    mounted(){
+        mounted(){
         this.userAgent = checkMobile();
         var _that = this;
         _that.Init();
@@ -165,5 +163,7 @@ export default{
             }              
         }
     }
-};    
+}
+</script>
 
+<style scoped lang='scss' src='../../static/css/sub.css'></style>

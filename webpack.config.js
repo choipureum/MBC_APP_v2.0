@@ -1,9 +1,9 @@
 ﻿const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 /**
  * @author imbc
- * @description multi page application 
+ * @description single page application 
  * 
  * */
 module.exports = {
@@ -32,6 +32,17 @@ module.exports = {
                 loader: 'vue-loader'
             },
             {
+                test: /\.(png|jpg|gif)$/i,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      esModule: false
+                    }
+                  }
+                ]
+            },
+            {
                 test: /\.js$/, 
                 exclude: /node_modules/, 
                 use: {
@@ -42,6 +53,7 @@ module.exports = {
                 },
             },
         ],
-    },   
+    },
+    plugins: [new VueLoaderPlugin()],   
     watch: true //자동 번들화 작업 여부
 };

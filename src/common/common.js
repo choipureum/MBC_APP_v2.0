@@ -141,9 +141,9 @@ const scrollCenter = (obj, item) => {
     var thisWidth = item[0].clientWidth/2;
     var scrollMove = move-windowWidth+thisWidth;
     if( item[0].offsetLeft > windowWidth ){
-        $(obj).stop().animate({scrollLeft : scrollMove}, 50, "linear");
+        $(obj).stop().animate({scrollLeft : scrollMove}, 100, "linear");
     }else{
-        $(obj).stop().animate({scrollLeft : 0}, 50, "linear");
+        $(obj).stop().animate({scrollLeft : 0}, 100, "linear");
     }
     return false;
 }

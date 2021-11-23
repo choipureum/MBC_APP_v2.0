@@ -7,6 +7,7 @@
     padding-right:env(safe-area-inset-right);
     padding-left:env(safe-area-inset-left);
 }*/
+
 .wrapper {
     margin: 0 6.25% 35px;
     position: relative;
@@ -17,7 +18,7 @@
 }
 .btn_link {
     padding-right: 13px;
-    background: url(../images/arr-right.png) right center no-repeat;
+    background: url("../../static/images/arr-right.png") right center no-repeat;
     font-size: 14px;
     background-size: 5px;
 }
@@ -131,7 +132,7 @@
         padding-left: 9px;
         width: 43px;
         height: 50px;
-        background: url(../images/bg_flag.png) no-repeat;
+        background: url('../images/bg_flag.png') no-repeat;
         background-size: 43px;
         position: absolute;
         right: 20px;
@@ -270,7 +271,7 @@
 
     .wrap_vod:before {
         content: '';
-        background: url(../images/vod_top_gra.png) no-repeat;
+        background: url('../../static/images/vod_top_gra.png') no-repeat;
         background-size: 100%;
         position: absolute;
         top: 0;
@@ -321,7 +322,7 @@
         color: #fff;
         font-size: 12px;
         font-family: 'notokr-medium';
-        background: url(../images/bg-link.png) no-repeat;
+        background: url('../images/bg-link.png') no-repeat;
         background-size: 56px;
         position: absolute;
         right: 0;
@@ -432,7 +433,7 @@
         margin-top: 5px;
         width: 42px;
         height: 19px;
-        background: url(../images/ico_olymphics.png) no-repeat;
+        background: url('../images/ico_olymphics.png') no-repeat;
         background-size: 42px;
     }
 
@@ -455,7 +456,7 @@
                 line-height: 23px;
                 font-size: 9px;
                 font-family: 'notokr-bold';
-                background: url(../images/bg_medal.png) 1px 0 no-repeat;
+                background: url('../images/bg_medal.png') 1px 0 no-repeat;
                 background-size: 22px;
                 vertical-align: top;
             }
@@ -514,12 +515,12 @@
     letter-spacing: -.075rem;
     color: #fff;
     overflow: hidden;
-    background: url(../images/bg-covid1.jpg) no-repeat;
+    background: url('../images/bg-covid1.jpg') no-repeat;
     background-size: 100%;
 }
 
 .wrap_corona .box:nth-child(2) .c-number {
-    background: url(../images/bg-covid2.jpg) no-repeat;
+    background: url('../images/bg-covid2.jpg') no-repeat;
     background-size: 100%;
 }
 
@@ -548,7 +549,7 @@
 .wrap_corona .c-number .num-change span {
     margin-right: 2px;
     padding-right: 15px;
-    background: url(../images/ico-arr-up.png) right center no-repeat;
+    background: url("../images/ico-arr-up.png") right center no-repeat;
     background-size: 12px;
     padding-left: 2px;
 }

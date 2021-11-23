@@ -1,5 +1,6 @@
-import timeline from '../src/components/timeLine.js';
-import news from '../src/components/news.js';
+import timeline from '../src/components/timeLine.vue';
+import news from '../src/components/news.vue';
+import onAir from '../src/components/onAir.vue';
 
 export default new VueRouter({
     routes: [
@@ -10,6 +11,10 @@ export default new VueRouter({
         {
             path: '/news',
             component: news
+        },
+        {
+            path: '/onAir',
+            component: onAir
         }
     ]
 });

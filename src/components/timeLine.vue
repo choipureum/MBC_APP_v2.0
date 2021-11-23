@@ -1,4 +1,5 @@
-﻿/**
+<!--
+/**
  * @module entrypoint
  * @name mainVue.js
  * @description    
@@ -18,24 +19,14 @@
  * 
  * (c) 2021 iMBC
  */
-const commonCss = require('../../static/css/common.css');
-const mainCss = require('../../static/css/main.css');
- 
-import timelinefunction from "../common/timelinefunction.js";
-import PreviewPlayer from "../common/previewPlayer.js";
-import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
-import corona from "./corona.js";
-
-const scrollFn = timelinefunction.scrollFn;
-
-export default{
-    template: `
-    <div class="wrap_home">
+-->
+<template>
+   <div class="wrap_home">
         <!-- 프로모션 배너 타입 A -->
         <div class="main_top" v-if="topBanner.length > 0">
             <div class="visual_slide swiper-container" id="mTopWrap">
                 <ul :class="{'swiper-wrapper': topBanner.length > 1}">
-                    <li class="swiper-slide" v-for="(item,index) in topBanner" v-on:click="clickInterface('banner', item.Info.Relation.LinkType, item.Info.Relation.LinkURL, item.Info.Title, item.Info.Relation.ActionType,item.Info.Relation.BID,item.Info.Relation.NoticeMsg,item.Info.Relation.ScheduleCode)">              
+                    <li class="swiper-slide" v-for="(item,index) in topBanner" v-on:click="clickInterface('banner', item.Info.Relation.LinkType, item.Info.Relation.LinkURL, item.Info.Title, item.Info.Relation.ActionType,item.Info.Relation.BID,item.Info.Relation.NoticeMsg,item.Info.Relation.ScheduleCode)" :key='index'>              
                         <img :src="item.Info.Image" alt="item.Info.Title">
                         <div class="wrap_txt">
                             <h2 v-html="item.Info.Title"></h2>
@@ -47,7 +38,7 @@ export default{
             </div>
         </div>
         
-        <div v-if="itemList.length > 0" v-for="(item,index) in itemList" :key="index">
+        <div v-for="(item,index) in itemList" :key="index">
             <!-- 온에어  4.23(진행중)-->
             <div v-if="item.Division =='Live'" class="wrapper wrap_player" style="position:relative;" v-on:click="clickInterface('onair',item.DivisionType)">
                 <div v-show="item.Info.Program != '방송 종료'|| item.Info.Program != '방송 시작'">
@@ -83,7 +74,7 @@ export default{
                             </ul>
                         </div>
                         <ul>
-                            <li v-for="(newsItem,newsIndex) in filteredNews.splice(0,8)" :key="newsIndex" :class="{'first':newsIndex == 0,'ellipsis': newsIndex > 0 }" v-bind:key="newsItem.DivisionType">
+                            <li v-for="(newsItem,newsIndex) in filteredNews.splice(0,8)" :key="newsIndex" :class="{'first':newsIndex == 0,'ellipsis': newsIndex > 0 }">
                                 <a v-on:click="clickInterface('bannerNews',newsItem.Info.Relation.LinkType,newsItem.Info.Relation.LinkURL,'MBC뉴스')">
                                     <span v-if="newsIndex == 0" class="img">
                                         <img :src="newsItem.Info.Relation.ContentImage" alt="newsItem.Info.Title">
@@ -139,17 +130,19 @@ export default{
 
             <!-- 콘텐츠 A 무료영상 : 다시보기  **  Division:VOD / DivisionType:A-->
             <div v-else-if="item.Division == 'VOD' && item.DivisionType == 'A'" class="wrapper wrap_vod wrap_player" :style="'background:#27253f url('+item.Info.Image+') no-repeat;background-size: 100%;'" v-on:click="clickInterface('content',item.Division, item.Info.Relation.BID)">
-                <div class="player replayVod" :data-bid="item.Info.Relation.BID" :data-div="'VODContent'+index" :data-title="item.Info.Title" style="position:relative;">
-                    <span class="img" style="display:block"><img class="thumb img_thumb" :data-url="item.Info.Relation.ContentImage" :alt="item.Info.Title" v-img-lazy-loading></span>
-                    <span class="img vod_prev" style="display:none" :id="'VODContent'+index"></span>
-                </div>
-                <div class="wrap_txt">
-                    <div class="tit_info">
-                        <h3 class="title ellipsis">[다시보기] {{item.Info.Program}}</h3>
-                        <span class="date">{{item.Info.BroadDate}}</span>
-                        <span class="num">{{item.Info.Relation.ContentNumber}}회</span>
+                <div :style="{ backgroundImage: 'url('+'./static/images/vod_top_gra.png'+')' }">
+                    <div class="player replayVod" :data-bid="item.Info.Relation.BID" :data-div="'VODContent'+index" :data-title="item.Info.Title" style="position:relative;">
+                        <span class="img" style="display:block"><img class="thumb img_thumb" :data-url="item.Info.Relation.ContentImage" :alt="item.Info.Title" v-img-lazy-loading></span>
+                        <span class="img vod_prev" style="display:none" :id="'VODContent'+index"></span>
                     </div>
-                    <a class="btn_vod">바로가기</a>
+                    <div class="wrap_txt">
+                        <div class="tit_info">
+                            <h3 class="title ellipsis">[다시보기] {{item.Info.Program}}</h3>
+                            <span class="date">{{item.Info.BroadDate}}</span>
+                            <span class="num">{{item.Info.Relation.ContentNumber}}회</span>
+                        </div>
+                        <a class="btn_vod">바로가기</a>
+                    </div>
                 </div>
             </div>
             <!-- 콘텐츠 A 핫클립영상  **  Division:Clip / DivisionType: A-->
@@ -233,9 +226,18 @@ export default{
             </div>
         </div>
     </div>
-    `
-    ,
-    data() {
+</template>
+
+<script>
+import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
+import timelinefunction from "../common/timelinefunction.js";
+import PreviewPlayer from "../common/previewPlayer.js";
+import corona from "./corona.vue";
+
+const scrollFn = timelinefunction.scrollFn;
+
+export default{
+    data(){
         return{
             isLoading: true,
             isAuto: "",
@@ -243,10 +245,10 @@ export default{
             selectedCategory: "A",
             topBanner:[],
             itemList: [],
-            newsList: []
+            newsList: []           
         }
     },
-    mounted() {
+       mounted() {
         this.userAgent = checkMobile();
         this.isAuto = getParameter("isAuto");
     
@@ -446,8 +448,8 @@ export default{
                 window.webkit.messageHandlers.iMBCHandler.postMessage(msg);
             }
         }
-    }
-};    
+    } 
+}
+</script>
 
-Vue.directive('img-lazy-loading', ImgLazyLoading);
-
+<style scoped lang='scss' src='../../static/css/main.css'></style>
