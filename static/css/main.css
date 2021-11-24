@@ -268,7 +268,17 @@
     padding: 32% 20px 0;
     background: #27253f;
 }
-
+    .wrap_vod .vod_gra{
+        content: '';
+        background-size: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+    /*
     .wrap_vod:before {
         content: '';
         background: url('../../static/images/vod_top_gra.png') no-repeat;
@@ -280,6 +290,7 @@
         height: 100%;
         z-index: 0;
     }
+    */
 
     .wrap_vod .wrap_txt {
         overflow: hidden;

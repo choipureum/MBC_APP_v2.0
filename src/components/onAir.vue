@@ -70,7 +70,9 @@
                 <div class="wrapper thumb_list">
                     <ul>
                         <li class="vod" v-on:click="clickInterface('schedule', item.ScheduleCode)" v-for="(item,index) in scheduleList" :key='index'>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.OnAirImage" :alt="item.Title"><span class="bar" :style="{width: item.percentTime+'%'}"></span></span>
+                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.OnAirImage" :alt="item.Title"><span class="bar" :style="{width: item.percentTime+'%'}"></span>
+                                <span class='vod_btn_play' :style="{ backgroundImage: 'url('+'./static/images/btn_play.png'+')' }"></span>
+                            </span>
                             <div>
                                 <span class="title ellipsis2" v-html="item.Title"></span> 
                                 <span class="program ellipsis" v-html="item.TypeTitle"></span> 
@@ -87,7 +89,9 @@
                 <div class="wrapper thumb_list">
                     <ul>
                         <li class="vod" v-on:click="clickInterface('schedule', item.ScheduleCode)" v-for="(item,index) in radioList" :key='index'>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.OnAirImage" :alt="item.Title"><span class="bar" :style="{width: item.percentTime+'%'}"></span></span>
+                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.OnAirImage" :alt="item.Title"><span class="bar" :style="{width: item.percentTime+'%'}"></span>
+                                <span class='vod_btn_play' :style="{ backgroundImage: 'url('+'./static/images/btn_play.png'+')' }"></span>
+                            </span>
                             <div>
                                 <span class="title ellipsis2" v-html="item.Title"></span> 
                                 <span class="program ellipsis" v-html="item.TypeTitle"></span> 
@@ -96,7 +100,8 @@
                         </li>
                     </ul>
                 </div>
-            </div>     
+            </div>  
+            <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>   
         </div>   
 </template>
 
@@ -116,7 +121,7 @@ export default {
             radioList: []
         }
     },
-    created() {
+    mounted() {
         this.userAgent = checkMobile();
         var _that = this;
         _that.Init(); 
@@ -276,7 +281,10 @@ export default {
                 }    
                 window.webkit.messageHandlers.iMBCHandler.postMessage(msg);
             }         
-        }
+        },
+        moveTop(){
+            $(document).scrollTop(0);   
+        },
     }
 }
 </script>

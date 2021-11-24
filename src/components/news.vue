@@ -66,6 +66,7 @@
                         </ul>
                     </div>
                 </div>
+                <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>
             </div>
 </template>
 
@@ -87,7 +88,7 @@ export default{
             newsDeskList:[]
         }
     },
-        mounted(){
+    mounted(){
         this.userAgent = checkMobile();
         var _that = this;
         _that.Init();
@@ -161,6 +162,9 @@ export default{
                 var msg = { 'setAppBanner': { 'linkType': "APP_LINK", 'link': link, 'title': "MBC뉴스" } };
                 window.webkit.messageHandlers.iMBCHandler.postMessage(msg);
             }              
+        },
+        moveTop(){
+            $(document).scrollTop(0);   
         }
     }
 }

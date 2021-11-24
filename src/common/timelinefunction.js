@@ -8,11 +8,12 @@
  *      
  * (c) 2021 iMBC
  */
-function scrollFn() {
+ export const scrollFn = () => {
     $.fn.scrollGet();
 }
+
 (function ($) {
-    $.fn.scrollGet = function () {
+    $.fn.scrollGet = () => {
 
         var top = $(window).scrollTop();
         var bottom = $(window).scrollTop() + $(window).height();
@@ -37,7 +38,7 @@ function scrollFn() {
             $(window).off('scroll', $.fn.scrollAni);
         }
 
-        videos.each(function (i) {
+        videos.each(function(i){
 
             var video = $(this).find('video'),
 
@@ -103,4 +104,3 @@ $(function () {
     $(document).on('scroll', scrollStartStop)
 });
 
-export default scrollFn;

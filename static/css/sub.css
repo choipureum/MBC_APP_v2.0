@@ -36,7 +36,7 @@ h2.b_title span{font-family: 'notokr-regular';}
 .thumb_list {margin-top: 20px;}
 .thumb_list li{margin-bottom: 16px;overflow: hidden;}
 .thumb_list li .img{display: block;width: 48%;height: 23vw;overflow: hidden;float: left;margin-right: 4%;position: relative;}
-.thumb_list li.vod .img:after{position: absolute;right: 10px;bottom: 11px;content: '';width: 20px;height: 23px;background: url('../../static/images/btn_play.png') no-repeat;background-size: 20px;}
+.thumb_list li.vod .img .vod_btn_play{position: absolute;right: 10px;bottom: 11px;content: '';width: 20px;height: 23px;background-size: 20px;}
 .thumb_list li .img .bar,.type_row li .img .bar{position: absolute;bottom: 0;left: 0;height: 4px;background: #fff;opacity: .6;}
 
 .thumb_list li .title{margin-top: 1px;font-size: 14px;line-height: 20px;}

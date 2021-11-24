@@ -10,9 +10,6 @@
             $('#scrollTop').fadeIn(300);
         }
     });
-    $('#scrollTop').click(function () {
-        $(document).scrollTop(0);
-    });
 });
 
 /**

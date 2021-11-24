@@ -12,7 +12,7 @@ Vue.component('gnb-menu', {
                 <div class="slide">
                     <ul>
                         <li v-on:click="stateChange(index)" v-for="(item,index) in GnbMenu" v-if="item.state=='Y'" :class="{'on': index == idx}">
-                            <router-link :to="item.link" v-if='item.weblinkpos=="WEB"'>
+                            <router-link :to="item.link" v-if='item.weblinkpos=="GNB"'>
                                 <a v-html="item.menuName"></a>
                             </router-link>
                             <a v-else v-on:click="clickGNBInterface(item.weblinkpos, item.link, item.menuName)" v-html="item.menuName"></a>

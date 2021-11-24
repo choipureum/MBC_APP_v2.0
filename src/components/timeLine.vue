@@ -124,27 +124,27 @@
                     <div class="tit_info">
                         <h3 class="title_olympic ellipsis" v-html="item.Info.Title"></h3>
                     </div>
-                    <a class="btn_vod">바로가기</a>
+                    <a class="btn_vod" :style="{ backgroundImage: 'url('+'./static/images/bg-link.png'+')' }" >바로가기</a>
                 </div>
             </div>
 
             <!-- 콘텐츠 A 무료영상 : 다시보기  **  Division:VOD / DivisionType:A-->
             <div v-else-if="item.Division == 'VOD' && item.DivisionType == 'A'" class="wrapper wrap_vod wrap_player" :style="'background:#27253f url('+item.Info.Image+') no-repeat;background-size: 100%;'" v-on:click="clickInterface('content',item.Division, item.Info.Relation.BID)">
-                <div :style="{ backgroundImage: 'url('+'./static/images/vod_top_gra.png'+')' }">
-                    <div class="player replayVod" :data-bid="item.Info.Relation.BID" :data-div="'VODContent'+index" :data-title="item.Info.Title" style="position:relative;">
-                        <span class="img" style="display:block"><img class="thumb img_thumb" :data-url="item.Info.Relation.ContentImage" :alt="item.Info.Title" v-img-lazy-loading></span>
-                        <span class="img vod_prev" style="display:none" :id="'VODContent'+index"></span>
+                <div class='vod_gra' :style="{ backgroundImage: 'url('+'./static/images/vod_top_gra.png'+')' }"></div>
+                <div class="player replayVod" :data-bid="item.Info.Relation.BID" :data-div="'VODContent'+index" :data-title="item.Info.Title" style="position:relative;">
+                    <span class="img" style="display:block"><img class="thumb img_thumb" :data-url="item.Info.Relation.ContentImage" :alt="item.Info.Title" v-img-lazy-loading></span>
+                    <span class="img vod_prev" style="display:none" :id="'VODContent'+index"></span>
+                </div>
+                <div class="wrap_txt">
+                    <div class="tit_info">
+                        <h3 class="title ellipsis">[다시보기] {{item.Info.Program}}</h3>
+                        <span class="date">{{item.Info.BroadDate}}</span>
+                        <span class="num">{{item.Info.Relation.ContentNumber}}회</span>
                     </div>
-                    <div class="wrap_txt">
-                        <div class="tit_info">
-                            <h3 class="title ellipsis">[다시보기] {{item.Info.Program}}</h3>
-                            <span class="date">{{item.Info.BroadDate}}</span>
-                            <span class="num">{{item.Info.Relation.ContentNumber}}회</span>
-                        </div>
-                        <a class="btn_vod">바로가기</a>
-                    </div>
+                    <a class="btn_vod" :style="{ backgroundImage: 'url('+'./static/images/bg-link.png'+')' }">바로가기</a>
                 </div>
             </div>
+
             <!-- 콘텐츠 A 핫클립영상  **  Division:Clip / DivisionType: A-->
             <div v-else-if="item.Division == 'Clip' && item.DivisionType == 'A'" class="wrapper wrap_player" :data-title="item.Info.Title" v-on:click="clickInterface('content',item.Division, item.Info.Relation.BID)">
                 <div class="player replayVod" :data-bid="item.Info.Relation.BID" :data-div="'VODContent'+index" style="position:relative;">
@@ -225,16 +225,15 @@
                 </div>
             </div>
         </div>
+        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>
     </div>
 </template>
 
 <script>
 import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
-import timelinefunction from "../common/timelinefunction.js";
+import { scrollFn } from "../common/timelinefunction.js";
 import PreviewPlayer from "../common/previewPlayer.js";
 import corona from "./corona.vue";
-
-const scrollFn = timelinefunction.scrollFn;
 
 export default{
     data(){
@@ -248,42 +247,12 @@ export default{
             newsList: []           
         }
     },
-       mounted() {
+    beforeMount(){
         this.userAgent = checkMobile();
         this.isAuto = getParameter("isAuto");
-    
-        var _that = this;
-        var timeline_url = "https://control.imbc.com/App/V2/HomeTimeline?type=" + this.userAgent + "&date=" + getDateFormat();
-
-        $.ajax({
-            url: timeline_url,
-            dataType: "json",
-            async:true,
-            cache: true,
-            success: function (data) {
-                var newsPosition = false;
-
-                //data 항목에 맞게 분류(data에 매핑)
-                $.each(data, function (index, item) {
-                    if(item.Division =="Banner" && item.DivisionType == "A"){
-                        _that.topBanner.push(item);
-                    }
-                    else if (item.Division !== "News") {
-                        _that.itemList.push(item);
-                    }
-                    else {
-                        if (!newsPosition) {
-                            _that.itemList.push(item);
-                            newsPosition = true;
-                        }
-                        _that.newsList.push(item);
-                    }
-
-                });
-
-            }
-        });
-
+    },
+    mounted() {
+        this.Init();   
     },
     components:{
         'corona-class': corona
@@ -325,6 +294,39 @@ export default{
         }
     },
     methods: {
+        Init(){
+            var _that = this;
+            var timeline_url = "https://control.imbc.com/App/V2/HomeTimeline?type=" + this.userAgent + "&date=" + getDateFormat();
+
+            $.ajax({
+                url: timeline_url,
+                dataType: "json",
+                async:true,
+                cache: true,
+                success: function (data) {
+                    var newsPosition = false;
+
+                    //data 항목에 맞게 분류(data에 매핑)
+                    $.each(data, function (index, item) {
+                        if(item.Division =="Banner" && item.DivisionType == "A"){
+                            _that.topBanner.push(item);
+                        }
+                        else if (item.Division !== "News") {
+                            _that.itemList.push(item);
+                        }
+                        else {
+                            if (!newsPosition) {
+                                _that.itemList.push(item);
+                                newsPosition = true;
+                            }
+                            _that.newsList.push(item);
+                        }
+
+                    });
+
+                }
+            });
+        },
         //onair
         getOnAir() {
             var oid = "onair";
@@ -381,6 +383,9 @@ export default{
                 }
 
             });
+        },
+        moveTop(){
+            $(document).scrollTop(0);   
         },
         //클릭시 interface 이동
         clickInterface(...args) {
