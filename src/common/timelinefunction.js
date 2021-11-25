@@ -73,7 +73,7 @@
  *      
  * @param {any} el
  */
-jQuery.expr.filters.offscreen = function (el) {
+jQuery.expr.filters.offscreen = (el) => {
     var rect = el.getBoundingClientRect();
     return (
         (rect.x + rect.width) < 0

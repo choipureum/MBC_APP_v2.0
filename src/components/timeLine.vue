@@ -225,7 +225,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>
+        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>
     </div>
 </template>
 
@@ -233,12 +233,15 @@
 import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
 import { scrollFn } from "../common/timelinefunction.js";
 import PreviewPlayer from "../common/previewPlayer.js";
-import corona from "./corona.vue";
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload, bannerDefaultImg('drama'));
 
 export default{
     data(){
         return{
             isLoading: true,
+            initRender: false,
             isAuto: "",
             userAgent: "",
             selectedCategory: "A",
@@ -247,22 +250,28 @@ export default{
             newsList: []           
         }
     },
+    directives:{
+        'img-lazy-loading': ImgLazyLoading
+    },
     beforeMount(){
         this.userAgent = checkMobile();
         this.isAuto = getParameter("isAuto");
     },
     mounted() {
-        this.Init();   
+        this.Init();
     },
     components:{
-        'corona-class': corona
+        'corona-class': () => import('./corona.vue')
     },
     beforeUpdate(){
-        this.$nextTick(function () {
+        this.$nextTick(()=>{
+        if(!this.initRender) {
             sliderBanner();
-        }) 
+            this.initRender = true; 
+        } 
+        });
     }, 
-    updated() {
+    updated() {  
         //첫 로드시에만 실행
         var onBtn = $('#onair_video');
         if (onBtn.length == 0) {
@@ -350,8 +359,6 @@ export default{
                         $("#" + oidwrapper).addClass("onair-on");
                     }
                 }, 1000);
-
-
             } catch (ex) {
                 return;
             }

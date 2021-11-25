@@ -3,7 +3,7 @@
  * @returns void
  */
  $(function () {
-    $(window).scroll(function () {
+    $(window).scroll(() => {
         if ($(window).scrollTop() == 0) {
             $('#scrollTop').fadeOut(300);
         } else {

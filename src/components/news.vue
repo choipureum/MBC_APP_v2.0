@@ -1,5 +1,4 @@
 <!--
-
 /**
  * @module entrypoint
  * @name newsVue.js
@@ -15,7 +14,6 @@
  * 
  * (c) 2021 iMBC
  */
-
 -->
 <template>
            <div class="wrap_news">
@@ -66,7 +64,7 @@
                         </ul>
                     </div>
                 </div>
-                <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>
+                <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>
             </div>
 </template>
 

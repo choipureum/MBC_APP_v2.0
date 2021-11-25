@@ -101,7 +101,7 @@
                     </ul>
                 </div>
             </div>  
-            <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>   
+            <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>   
         </div>   
 </template>
 
@@ -109,7 +109,6 @@
 import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, bannerDefaultImg('drama'));
-
 export default {
     data(){
         return{
@@ -244,15 +243,12 @@ export default {
                         if(args[3] == "Banner") {window.iMBCHandler.setAppBanner(args[4], args[5], '온에어');}
                         else{window.iMBCHandler.setAppOnair(args[1]);}      
                         break;
-
                     case "sports":
                         window.iMBCHandler.setAppBanner("WEB_OUT", args[1], '스포츠');
                         break;
-
                     case "program":
                         window.iMBCHandler.setAppBanner("WEB_OUT", args[1], '제작발표회');
                         break;
-
                     case "schedule":
                         window.iMBCHandler.setAppOnair(args[1]);
                         break;
@@ -266,15 +262,12 @@ export default {
                         if(args[3] == "Banner"){ msg = { 'setAppBanner': { 'linkType': args[4], 'link': args[5], 'title': '온에어' } };}
                         else{msg = { 'setAppOnair': { 'sCode': args[1] } };}
                         break;
-
                     case "sports":
                         msg = { 'setAppBanner': { 'linkType': "WEB_OUT", 'link': args[1], 'title': '스포츠' } };
                         break;
-
                     case "program":
                         msg = { 'setAppBanner': { 'linkType': "WEB_OUT", 'link': args[1], 'title': '제작발표회' } };
                         break;
-
                     case "schedule":
                         msg = { 'setAppOnair': { 'sCode': args[1] } };
                         break;

@@ -28,14 +28,13 @@ class PreviewPlayer {
 
         var src = "https://mediaapi.imbc.com/Player/OverlapURLUtil?broadcastId=" + this.broId;
 
-        var HTML = "<div style='position:relative;cursor:pointer;height:100%;width:100%' >"
-            + "<img class='img_thumb' id='" + this.id + "_img' data-url='" + this.imgsrc + "' style='position:absolute;top: 0px; left: 0px; z-index:19;height:inherit;width:inherit; margin:0;'>"
+        var HTML = "<div style='position:relative;cursor:pointer;height:100%;width:100%' v-lazy-container='{ selector:"+"'img'"+"}'>"
+            + "<img class='img_thumb' id='" + this.id + "_img' src='" + this.imgsrc + "' style='filter:brightness(60%); position:absolute;top: 0px; left: 0px; z-index:19;height:inherit;width:inherit; margin:0;'>"
             + "<video poster='./static/images/default_mbc_thum.jpg' muted preload='metadata' id='" + this.id + "'"
-            + " playsinline = '' x-webkit-airplay='' webkit-playsinline='true' autoplay style='display:block; cursor:pointer; width:100.4%; height:inherit;object-fit:fill;'></video>"
+            + " playsinline = '' x-webkit-airplay='' webkit-playsinline='true' autoplay style='display:block; cursor:pointer; width:100.4%; height:inherit;object-fit:fill;z-index:18'></video>"
             + "</div>";
 
-        //./images/default_mbc_thum.jpg
-
+   
         var parent = document.getElementById(div);
         if(parent==null) return;
         parent.innerHTML = HTML;
@@ -44,9 +43,9 @@ class PreviewPlayer {
         var isFirstCall = true;
 
         //미디어 데이터 미리보기 완료시 이미지 오버랩
-        this.player.addEventListener('ended', (event) => {
+        this.player.addEventListener('ended', () => {
             that.player.pause();
-            $('#' + that.id + "_img").fadeTo(300, 1, function () {
+            $('#' + that.id + "_img").fadeTo(300, 1, () => {
                 try {
                     that.player.currentTime = 0;
                 } catch (ex) { }
@@ -62,9 +61,12 @@ class PreviewPlayer {
                     dataType: "jsonp",
                     cache: false,
                     success: function (data) {
-                        that.player.addEventListener('loadeddata', function () {
+                        that.player.addEventListener('loadeddata', event => {
                             $('#' + that.id + "_img").fadeTo(300, 0);
-                        });
+                        })
+                        //that.player.addEventListener('loadeddata', function () {
+                        //    $('#' + that.id + "_img").fadeTo(300, 0);
+                        //});
                         that.player.src = data.MediaURL;
                         var playPromise = that.player.play();
 
@@ -94,12 +96,13 @@ class PreviewPlayer {
         var vod_off = _.debounce(function (e) {
 
             that.player.pause();
-            $('#' + that.id + "_img").fadeTo(300, 1, function () {
+            $('#' + that.id + "_img").fadeTo(300, 1, () => {
                 try {
                     that.player.currentTime = 0;
                 } catch (ex) { }
             });
         }, 300);
+
         $(parent).mouseenter(vod_on);
         $(parent).mouseleave(vod_off);
         $(parent).parent().parent().click(vod_off);
@@ -138,7 +141,7 @@ class PreviewPlayer {
 
         var hls = new Hls();
 
-        this.player.addEventListener('stalled', (event) => {
+        this.player.addEventListener('stalled', () => {
             $('#' + that.id + "_img").fadeTo(300, 1);
             isFirstCall = true;
         });
@@ -148,7 +151,7 @@ class PreviewPlayer {
 
         if (userAgent === "ios") {
 
-            var ios_onair_on = _.debounce(function (e) {
+            var ios_onair_on = _.debounce((e) => {
 
                 if (isFirstCall) {
                     isFirstCall = false;
@@ -159,10 +162,10 @@ class PreviewPlayer {
                         crossDomain: true,
                         xhrFields: { withCredentials: true },
                         cache: false,
-                        success: function (data) {
+                        success: (data) => {
                             that.player.setAttribute("poster", this.imgsrc);
-                            that.player.addEventListener('loadeddata', function () {
-                                setTimeout(function () {
+                            that.player.addEventListener('loadeddata', () => {
+                                setTimeout(() => {
                                     $('#' + that.id + "_img").fadeTo(300, 0);
                                 }, 300)
                             });
@@ -177,22 +180,20 @@ class PreviewPlayer {
                         }
                     });
                 } else {
-                    setTimeout(function () {
+                    setTimeout(() => {
                         var playPromise = that.player.play();
 
                         if (playPromise !== undefined) {
-                            playPromise.then(function () {
+                            playPromise.then(() => {
                                 $('#' + that.id + "_img").fadeTo(300, 0);
-                            }).catch(function (error) {
-
+                            }).catch((error) => {
                             });
                         }
                     }, 300)
-
                 }
             }, 300);
 
-            var ios_onair_off = _.debounce(function (e) {
+            var ios_onair_off = _.debounce((e) => {
                 that.player.pause();
             }, 300);
 
@@ -204,7 +205,7 @@ class PreviewPlayer {
         //userAgent == Android && Web 이외 일때\
         else {
 
-            var onair_on = _.debounce(function (e) {
+            var onair_on = _.debounce((e) => {
 
                 if (isFirstCall) {
                     isFirstCall = false;
@@ -216,8 +217,8 @@ class PreviewPlayer {
                         crossDomain: true,
                         xhrFields: { withCredentials: true },
                         success: function (data) {
-                            that.player.addEventListener('loadeddata', function () {
-                                setTimeout(function () {
+                            that.player.addEventListener('loadeddata',() => {
+                                setTimeout(() => {
                                     $('#' + that.id + "_img").fadeTo(300, 0);
                                 }, 300)
                             });
@@ -227,11 +228,11 @@ class PreviewPlayer {
                                 hls.loadSource(data.MediaInfo.MediaURL);
                                 hls.attachMedia(that.player);
 
-                                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                                hls.on(Hls.Events.MANIFEST_PARSED,() => {
                                     that.player.play();
                                 });
 
-                                hls.on(Hls.Events.ERROR, function (event, data) {
+                                hls.on(Hls.Events.ERROR,(event, data) => {
                                     //error Handling
                                     if (data.fatal) {
                                         switch (data.type) {
@@ -263,15 +264,14 @@ class PreviewPlayer {
                     });
 
                 } else {
-                    setTimeout(function () {
+                    setTimeout(() => {
                         hls.startLoad();
                         var playPromise = that.player.play();
 
                         if (playPromise !== undefined) {
-                            playPromise.then(function () {
+                            playPromise.then(() => {
                                 $('#' + that.id + "_img").fadeTo(300, 0);
-                            }).catch(function (error) {
-
+                            }).catch((error) => {
                             });
                         }
                     }, 300);
@@ -279,11 +279,10 @@ class PreviewPlayer {
                 }
             }, 300);
 
-            var onair_off = _.debounce(function (e) {
+            var onair_off = _.debounce((e) => {
                 that.player.pause();
                 hls.stopLoad();
             }, 300);
-
 
             $(anchor).mouseenter(onair_on);
             $(anchor).mouseleave(onair_off);
