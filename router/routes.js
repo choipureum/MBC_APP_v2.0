@@ -1,20 +1,67 @@
-import timeline from '../src/components/timeLine.vue';
-import news from '../src/components/news.vue';
-import onAir from '../src/components/onAir.vue';
+import {checkMobile,getParameter} from "../src/common/common.js";
+
+const mobileStatus = () => {
+    return checkMobile();
+}
+
+const autoStatus = (sname) => {
+    return getParameter(sname);
+}
+
+Vue.use(VueRouter)
 
 export default new VueRouter({
     routes: [
         {
             path: '/' ,
-            component: timeline
+            component: () => import('../src/components/timeLine.vue'),
+            props:{
+                isAuto: autoStatus("isAuto"),
+                userAgent: mobileStatus()
+            }
         },
         {
             path: '/news',
-            component: news
+            component: () => import('../src/components/news.vue'),
+            props:{
+                userAgent: mobileStatus()
+            }
         },
         {
             path: '/onAir',
-            component: onAir
-        }
+            component: () => import('../src/components/onAir.vue'),
+            props:{
+                userAgent: mobileStatus()
+            }
+        },
+        {
+            path: '/mbicLive',
+            component: () => import('../src/components/mbicLive.vue'),
+            props:{
+                userAgent: mobileStatus()
+            }
+        },
+        {
+            path: '/replay',
+            component: () => import('../src/components/replay.vue'),
+            props:{
+                userAgent: mobileStatus()
+            }
+        },
+        {
+            path: '/nowFree',
+            component: () => import('../src/components/nowFree.vue'),
+            props:{
+                userAgent: mobileStatus()
+            }
+        },
+        //error url
+        {
+            path: '*',
+            component: () => import ('../src/components/timeLine.vue'),
+            props:{
+                userAgent: mobileStatus()
+            }
+        },
     ]
 });

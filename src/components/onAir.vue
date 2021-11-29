@@ -107,12 +107,11 @@
 
 <script>
 import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
-import VueLazyload from 'vue-lazyload'
-Vue.use(VueLazyload, bannerDefaultImg('drama'));
+
 export default {
+    props:['userAgent'],
     data(){
         return{
-            userAgent:"",
             topBanner:[],
             sportsList:[],
             programList:[],
@@ -236,7 +235,7 @@ export default {
              */
             var msg;
             //android
-            if (app.userAgent == "android") {
+            if (this.userAgent == "android") {
                 switch (args[0]) {
                     case "banner":
                         if(args[2] != ""){alert(args[2]);}
@@ -255,7 +254,7 @@ export default {
                 }
             }      
             //ios
-            else if (app.userAgent == "ios") {
+            else if (this.userAgent == "ios") {
                 switch (args[0]) {
                     case "banner":
                         if(args[2] != ""){alert(args[2]);}

@@ -120,9 +120,9 @@ class PreviewPlayer {
 
         var src = "https://mediaapi.imbc.com/Player/OnAirURLUtil?type=m&onairtype=1";
 
-        var HTML = "<div style='position:relative;cursor:pointer;height:" + this.height + ";width=" + this.width + ";'>"
+        var HTML = "<div style='position:relative;cursor:pointer;height:100%; width=" + this.width + ";' v-lazy-container='{ selector:"+"'img'"+"}'>"
             + "<img id='" + this.id + "_img' src='" + this.imgsrc + "' style='position:absolute;top: 0px; left: 0px; z-index:19;height:" + this.height + ";width= " + this.width + "';alt='" + title + "'>"
-            + "<video poster='" + this.imgsrc + "'muted preload='none' id='" + this.id + "'"
+            + "<video poster='" + this.imgsrc + "'muted preload='metadata' id='" + this.id + "'"
             + " playsinline = '' x-webkit-airplay='' webkit-playsinline='true' autoplay style='cursor:pointer;  width:" + this.width + "px;  height:" + this.height + "px;object-fit:fill;display:block;'></video>"
             + "</div>";
 

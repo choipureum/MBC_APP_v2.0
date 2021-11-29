@@ -72,14 +72,6 @@ Vue.component('gnb-menu', {
         stateChange(value){
             this.idx = value;
         },
-        isState(nav){
-            if(nav == this.nav){
-                return true;
-            }
-            else{
-                return false;
-            }
-        },
         clickGNBInterface(pos, link, title){
             //android
             if (this.userAgent == "android") {

@@ -70,13 +70,10 @@
 
 <script>
 import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
-import VueLazyload from 'vue-lazyload'
-Vue.use(VueLazyload, bannerDefaultImg('drama'));
 
 export default{
     data(){
         return{
-            userAgent: "",
             today:"",
             newsList:{
                 main:[],
@@ -167,5 +164,4 @@ export default{
     }
 }
 </script>
-
 <style scoped lang='scss' src='../../static/css/sub.css'></style>

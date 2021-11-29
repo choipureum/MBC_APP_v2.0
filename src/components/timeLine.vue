@@ -74,7 +74,7 @@
                             </ul>
                         </div>
                         <ul>
-                            <li v-for="(newsItem,newsIndex) in filteredNews.splice(0,8)" :key="newsIndex" :class="{'first':newsIndex == 0,'ellipsis': newsIndex > 0 }">
+                            <li v-for="(newsItem,newsIndex) in filteredNews" :class="{'first':newsIndex == 0,'ellipsis': newsIndex > 0 }" :key="newsIndex" >
                                 <a v-on:click="clickInterface('bannerNews',newsItem.Info.Relation.LinkType,newsItem.Info.Relation.LinkURL,'MBC뉴스')">
                                     <span v-if="newsIndex == 0" class="img">
                                         <img :src="newsItem.Info.Relation.ContentImage" alt="newsItem.Info.Title">
@@ -225,7 +225,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>
+        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>
     </div>
 </template>
 
@@ -233,18 +233,14 @@
 import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
 import { scrollFn } from "../common/timelinefunction.js";
 import PreviewPlayer from "../common/previewPlayer.js";
-import VueLazyload from 'vue-lazyload'
-
-Vue.use(VueLazyload, bannerDefaultImg('drama'));
 
 export default{
+    props:['isAuto','userAgent'],
     data(){
-        return{
+        return {
             isLoading: true,
             initRender: false,
-            isAuto: "",
-            userAgent: "",
-            selectedCategory: "A",
+            selectedCategory: 'A',
             topBanner:[],
             itemList: [],
             newsList: []           
@@ -254,8 +250,6 @@ export default{
         'img-lazy-loading': ImgLazyLoading
     },
     beforeMount(){
-        this.userAgent = checkMobile();
-        this.isAuto = getParameter("isAuto");
     },
     mounted() {
         this.Init();
@@ -291,15 +285,14 @@ export default{
             });
         }
     },
-    computed: {
-        //뉴스 타입따라 filter
-        filteredNews: function () {
-            var app = this;
-            var category = app.selectedCategory;
+    computed:{
+        filteredNews(){
+            var _this = this;
+            var category = _this.selectedCategory;
 
-            return app.newsList.filter(function (newsItem) {
-                return newsItem.DivisionType === category;
-            });
+            return _this.newsList.filter((newsItem) => {
+                return newsItem.DivisionType.match(category);
+            }).splice(0,8);
         }
     },
     methods: {
@@ -344,20 +337,22 @@ export default{
             var userAgent = this.userAgent;
 
             try {
-                setTimeout(function () {
+                setTimeout(() => {
                     if (oid != undefined) {
                         var player1 = new PreviewPlayer();
                         player1.addOnAirPlayer(oid, oidwrapper, img, $("#" + oidwrapper).find(".thumb").width(), $("#" + oidwrapper).find(".thumb").height(), $("#" + oid).attr(":data-title"), userAgent); //error callback 질문
                     }
-                    $("#" + oidwrapper).mouseenter(function () {
-                        $("#" + oidwrapper).find(".img").last().css("display", "block");
-                        $("#" + oidwrapper).find(".img").first().css("display", "none");
-                    });
+
                     //onload onair play on
                     if (this.isAuto == 'Y') {
                         $("#" + oidwrapper).trigger("mouseenter");
                         $("#" + oidwrapper).addClass("onair-on");
                     }
+
+                    $("#" + oidwrapper).mouseenter(function () {
+                        $("#" + oidwrapper).find(".img").last().css("display", "block");
+                        $("#" + oidwrapper).find(".img").first().css("display", "none");
+                    });
                 }, 1000);
             } catch (ex) {
                 return;

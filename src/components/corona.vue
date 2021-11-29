@@ -1,5 +1,5 @@
 <template>
-             <section class="wrapper wrap_corona">
+             <section class="wrapper wrap_corona" v-if='Status.DecideTotal != 0'>
                  <div class="box">
                      <h3>코로나19 발생 현황<span class="standard">({{Status.StateDate}} 기준)</span></h3>
                      <div class="c-number" :style="{ backgroundImage: 'url('+'./static/images/bg-covid1.jpg'+')' }">
@@ -106,7 +106,7 @@ export default{
                 cache: true,
                 timeout: 10000,
                 success(o) {
-                    if (o.length > 1) {
+                    if (o != null) {
                         var k = _this.SortJSON(o, "createDt", "desc");
                         k[0].stdDay = k[0].stdDay.replace("년 ", "").replace("월 ", "").replace("일 ", "").replace("시", "");
  
