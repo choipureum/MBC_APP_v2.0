@@ -230,7 +230,7 @@
 </template>
 
 <script>
-import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
+import { getDateFormat, sliderBanner, ImgLazyLoading } from "../common/common.js";
 import { scrollFn } from "../common/timelinefunction.js";
 import PreviewPlayer from "../common/previewPlayer.js";
 
@@ -460,3 +460,4 @@ export default{
 </script>
 
 <style scoped lang='scss' src='../../static/css/main.css'></style>
+

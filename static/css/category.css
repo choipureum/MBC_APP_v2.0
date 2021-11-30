@@ -1,6 +1,6 @@
 /*******category*******/
 .category{padding: 40px 5.5%;}
-.category h2{font-size: 18px;font-family: 'notokr-bold';line-height: 20px;margin-bottom: 20px;}
+.category h2{font-size: 18px;font-family: 'notokr-bold';line-height: 26px;margin-bottom: 14px;}
 .category .section{margin-bottom: 20px;}
 .category .section ul{overflow: hidden;}
 .category .section ul li{float: left;margin-bottom: 3%;width: 48.5%;height: 50px;line-height: 50px;color: #fff;border-radius: 6px;box-sizing: border-box;padding-left: 55px;font-size: 14px;}
@@ -15,35 +15,23 @@
 .category .global{background:#3d4043 url(../images/ico_global.png) no-repeat 20px center;background-size: 24px;}
 
 /*list*/
+.category .btn_back{width: 30px;height: 30px;background: url(../images/ico_back.png) no-repeat;background-size: 30px;position: absolute;left: 5.5%;top: 36px;text-indent: -9999px;}
 .category h1{margin-bottom: 20px;font-size: 18px;font-family: 'notokr-bold';text-align: center;}
 .category .sort{text-align:center;overflow: hidden;margin-bottom: 20px;}
 .category .sort li{position: relative;display: inline-block;padding: 0 9px 0 7px;line-height: 22px;}
-.category .sort li button{display: block;color: #959595;font-size: 16px;font-family: 'notokr-regular';line-height: 22px;}
-.category .sort li.on button{display: block;font-family: 'notokr-bold';color: #fff;width: 100%;}
+.category .sort li button{display: block;color: #959595;font-size: 15px;font-family: 'notokr-regular';line-height: 22px;}
+.category .sort li.on button{display: block;font-family: 'notokr-bold';color: #fff;width: 100%}
 .category .sort li:after{content: '';position: absolute;right: 0;top: 6px;width: 1px;height: 10px;background: #4b4b4b;}
 .category .sort li:last-child:after{background: none}
 .category .search {position: absolute;right: 5.5%;top: 41px;width: 23%;height: 25px;background: #3d4043;border-radius: 4px;overflow: hidden;}
 .category .search input{width: 75%;height: 100%;line-height: 25px;padding-left: 10%;background: none;box-sizing: border-box;float: left;color: #fff;}
 .category .search button{width: 25%;height: 100%;text-indent: -9999px;background: url(../images/ico_search.png) no-repeat center center;background-size: 12px;}
 .category .cate_list{overflow: hidden}
-.category .cate_list li{float: left;width: 31%;margin-right: 3.5%;margin-bottom: 2%;}
+.category .cate_list li{float: left;width: 31%;margin-right: 3.5%;margin-bottom:9px}
 .category .cate_list li:nth-child(3n){margin-right: 0}
-.category .cate_list li .img{display: inline-block; height:39vw; overflow:hidden;}
-.category .cate_list .title{display: block;text-align: center;max-height: 40px;height: 42px;padding: 4px 0px 5px;font-size: 14px;line-height: 1.5;overflow: hidden;color: #fff;}
+.category .cate_list li .img{display: inline-block;height: 39vw;overflow: hidden;}
+.category .cate_list .title{display: block;text-align: center;max-height: 40px;height: 42px;padding: 4px 0px 6px;font-size: 14px;line-height: 1.5;overflow: hidden;color: #fff;}
 
 .selectbox {position: relative;}
-.selectbox.korean{width: 60px;line-height: 22px;}
-.selectbox.years{width: 50px;}
-.selectbox label {position: absolute;left: 0;top: 0px;}
-.selectbox select {
-    width: 100%;
-    height: 100%;
-    line-height: 22px;
-    font-family: inherit;
-    border: 0;
-    opacity: 0;
-    filter:alpha(opacity=0);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    }
+.selectbox.korean{line-height: 22px;}
+.selectbox select {position: absolute;left: 0;top: 0px;width: 100%;height: 100%;line-height: 22px;font-family: inherit;border: 0;opacity: 0;filter:alpha(opacity=0);-webkit-appearance: none;-moz-appearance: none;appearance: none}

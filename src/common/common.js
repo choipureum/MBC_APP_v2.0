@@ -109,7 +109,7 @@ export const sliderBanner = () => {
  *
  */
 export const gnbHeader = () => {
-    scrollX('.gnb', 14, 2);
+    scrollX('.gnb', 16, 2);
 };
 export const gnbMove = () => {
     scrollCenter('.gnb .slide', $('.gnb ul li.on'));

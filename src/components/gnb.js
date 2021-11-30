@@ -51,6 +51,7 @@ Vue.component('gnb-menu', {
         },
         InitData() {
             var _this = this;
+            var current_url = window.location.href;
             var url = 'https://control.imbc.com/MBCApp/GNB?date='+getDateFormat();
 
             $.ajax({
@@ -64,11 +65,17 @@ Vue.component('gnb-menu', {
                         $.each(o, function (index, item) {
                             var map = {link: item.Link, weblinkpos: item.WebLinkPos, menuName: item.MenuName, state: item.State};
                             _this.GnbMenu.push(map);
+                            _this.InitIdx(current_url, item.Link, index);
                         });                       
-                    }
+                    }                
                 }
             });
         },
+        InitIdx(current_url, current_route, index){
+            if(current_route !="/" && current_url.indexOf(current_route)>-1){
+                this.idx = index
+            }
+        },  
         stateChange(value){
             this.idx = value;
         },

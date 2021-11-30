@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import {checkMobile, getDateFormat, bannerDefaultImg, sliderType, getCookie} from "../common/common.js";
+import {getDateFormat, sliderType, getCookie} from "../common/common.js";
 
 export default{
   props:['userAgent'],

@@ -1,169 +1,164 @@
 <template>
-    <div class='chHome nowfree container'>
-        <!--상단 Main Top Slider -->
-        <section class="program-wrap">
-            <div class="chHome-wrap" v-if="mainTopList.length > 0">
-                <div id="chHomeWrap" class="chHome-area type-full swiper-container">
-                    <div :class="{'swiper-wrapper': mainTopList.length > 1}">
-                        <div class="swiper-slide" :style="{'background':'url('+'https://img.imbc.com/template/'+item.MImg+')'}" v-for="(item,index) in mainTopList" v-on:click="clickInterface('topBanner',item.MLinkUrl)" v-bind:key='index'>
-                            <a>
-                                <div class="img"><img :src="'https://img.imbc.com/template/'+item.MImg" :alt="item.MTitle"></div> 
-                                <div class="txt-wrap"><p class="title ellipsis2" v-html="item.MTitle"></p> <p class="program ellipsis" v-html="item.MContent"></p>
-                                </div>
-                            </a> 
-                        </div>
-                    </div>
-                    <div class="pagination"></div>  
-                </div>
-            </div>
-
-            <!-- 시청중 영상 시작 -->
-            <div class="onair-wrap nowfree-onair" v-if="userSeamList.List.length > 0">
-                <h2 class="tit-sec" v-if="userSeamList.username!=''"><strong>'{{userSeamList.username}}'</strong>님이 시청중인 영상</h2>
-                <h2 class="tit-sec" v-else><span>당신이 시청 중인 영상</span></h2> 
-                <div class="onair-area type_row ver01" id="nowVod">
-                    <div class="slide">
-                        <ul>
-                            <li class="chn" v-for="(item,index) in userSeamList.List"  v-on:click="clickInterface('userSeam',item.VodType, item.ContentId, item.ProgramId)" v-bind:key='index'>
-                                <a>        
-                                    <div class="img" v-lazy-container="{ 
-                                                    selector: 'img', 
-                                                    error: movieDefaultImg, 
-                                                    loading: movieDefaultImg 
-                                                }">
-                                        <img :data-src="item.ContentImg" :alt="item.ProgramTitle">            
-                                        <div class="bar-area">
-                                            <span class="bar" :style="{width: ((item.MediaTime/item.TotalDuration)*100) +'%'}"><strong></strong></span>
-                                        </div>        
-                                    </div>        
-                                    <div class="txt-wrap">           
-                                        <p class="title ellipsis2" v-html="item.ContentTitle"></p>
-                                        <div class="info">
-                                            <span class="num">{{parseInt(item.ContentNumber)}}회</span>
-                                            <span class="date">{{item.ViewDate.substring(0,10)}}</span>
-                                        </div>
-                                    </div>    
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Theme List -->
-            <div v-if="freeTheme.TotalCount > 0">
-                <template v-for="(item,index) in freeTheme.List">
-                    <div class="wrap-area"  v-bind:key='index'>
-                        <h2 class="tit-sec" v-html="item.MTitle"></h2>
-                        <div class="curation">          
-                            <div class="type_row" :id="'proSlide'+index">
-                                <div class="slide">
-                                    <ul>
-                                        <li v-for="(broadItem, broadIndex) in item.List" v-on:click="clickInterface('content', broadItem.BroadcastID.toString())" v-bind:key='broadIndex'>
-                                            <a><span class="img" v-lazy-container="{ 
-                                                selector: 'img', 
-                                                error: movieDefaultImg, 
-                                                loading: movieDefaultImg 
-                                            }"><img :data-src="broadItem.PosterPicture" :alt="broadItem.Title"></span><div class="tit" v-html="broadItem.Title"></div></a>
-                                        </li>
-                                    </ul>
-                                </div>
+    <div class='chHome nowfree'>
+        <div class='container'>
+            <!--상단 Main Top Slider -->
+            <section class="program-wrap">
+                <div class="chHome-wrap" v-if="mainTopList.length > 0">
+                    <div id="chHomeWrap" class="chHome-area type-full swiper-container">
+                        <div :class="{'swiper-wrapper': mainTopList.length > 1}">
+                            <div class="swiper-slide" :style="{'background':'url('+'https://img.imbc.com/template/'+item.MImg+')'}" v-for="(item,index) in mainTopList" v-on:click="clickInterface('topBanner',item.MLinkUrl)" v-bind:key='index'>
+                                <a> 
+                                    <div class="img"><img :src="'https://img.imbc.com/template/'+item.MImg" :alt="item.MTitle"></div> 
+                                    <div class="txt-wrap"><p class="title ellipsis2" v-html="item.MTitle"></p> <p class="program ellipsis" v-html="item.MContent"></p>
+                                    </div>
+                                </a> 
                             </div>
                         </div>
+                        <div class="pagination"></div>  
                     </div>
-                </template>
-            </div>
+                </div>
 
-            <!-- Best 10 -->
-            <div class="wrap-area wrap-best">
-                <h2 class="tit-sec">BEST 10</h2>
-                <div class="curation">          
-                    <div class="type_row" id="bestSlide">
+                <!-- 시청중 영상 시작 -->
+                <div class="onair-wrap nowfree-onair" v-if="userSeamList.List.length > 0">
+                    <h2 class="tit-sec" v-if="userSeamList.username!=''"><strong>'{{userSeamList.username}}'</strong>님이 시청중인 영상</h2>
+                    <h2 class="tit-sec" v-else><span>당신이 시청 중인 영상</span></h2> 
+                    <div class="onair-area type_row ver01" id="nowVod">
                         <div class="slide">
                             <ul>
-                                <li v-for="(item,index) in best10List" v-on:click="clickInterface('content', item.BroadcastId)" v-bind:key='index'>
-                                    <a><span class="img" v-lazy-container="{ 
-                                    selector: 'img', 
-                                    error: movieDefaultImg, 
-                                    loading: movieDefaultImg 
-                                }"><img :data-src="item.Img" :alt="item.Title"></span>
-                                    <p class="txt" v-html="item.Title"></p></a>
+                                <li class="chn" v-for="(item,index) in userSeamList.List"  v-on:click="clickInterface('userSeam',item.VodType, item.ContentId, item.ProgramId)" v-bind:key='index'>
+                                    <a>        
+                                        <div class="img" v-lazy-container="{ 
+                                                        selector: 'img', 
+                                                        error: movieDefaultImg, 
+                                                        loading: movieDefaultImg 
+                                                    }">
+                                            <img :data-src="item.ContentImg" :alt="item.ProgramTitle">            
+                                            <div class="bar-area">
+                                                <span class="bar" :style="{width: ((item.MediaTime/item.TotalDuration)*100) +'%'}"><strong></strong></span>
+                                            </div>        
+                                        </div>        
+                                        <div class="txt-wrap">           
+                                            <p class="title ellipsis2" v-html="item.ContentTitle"></p>
+                                            <div class="info">
+                                                <span class="num">{{parseInt(item.ContentNumber)}}회</span>
+                                                <span class="date">{{item.ViewDate.substring(0,10)}}</span>
+                                            </div>
+                                        </div>    
+                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="wrapper wrap-search">
-                <div class="tabs">
-                    <ul>
-                        <li :class="{on: initLabeling.broad == 'drama'}" @click="categoryDataFilter('drama',1)"><button>드라마</button></li>
-                        <li :class="{on: initLabeling.broad == 'variety'}" @click="categoryDataFilter('variety',2)"><button>예능</button></li>
-                        <li :class="{on: initLabeling.broad == 'culture'}" @click="categoryDataFilter('culture',3)"><button>시사교양</button></li>
-                    </ul>
-                </div>
-                <div class="wrap-sorts">
-                    <div class="search">
-                        <input type="text" maxlength="10" v-on:blur ="listDataFilter(0,'', $event.target.value)">
-                        <button type="button" class="btn-search"><span class="icon ico-search">검색하기</span></button>
-                    </div>
-                    <div class="wrap-select">
-                        <div class="select-box">
-                            <select name="" id="" @change="listDataFilter($event.target.value,initial,'')">
-                                <option value='0'>연도별</option> 
-                                <option v-for="(year, index) in years" :value="year" v-bind:key='index'>{{ year }}</option>
-                                <option value='2000'>2000년 이전</option>
-                            </select>
+
+                <!-- Theme List -->
+                <div v-if="freeTheme.TotalCount > 0">
+                    <template v-for="(item,index) in freeTheme.List">
+                        <div class="wrap-area"  v-bind:key='index'>
+                            <h2 class="tit-sec" v-html="item.MTitle"></h2>
+                            <div class="curation">          
+                                <div class="type_row" :id="'proSlide'+index">
+                                    <div class="slide">
+                                        <ul>
+                                            <li v-for="(broadItem, broadIndex) in item.List" v-on:click="clickInterface('content', broadItem.BroadcastID.toString())" v-bind:key='broadIndex'>
+                                                <a><span class="img" v-lazy-container="{ 
+                                                    selector: 'img', 
+                                                    error: movieDefaultImg, 
+                                                    loading: movieDefaultImg 
+                                                }"><img :data-src="broadItem.PosterPicture" :alt="broadItem.Title"></span><div class="tit" v-html="broadItem.Title"></div></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="select-box">
-                            <select name="" id="" @change="listDataFilter(0, $event.target.value, '')"> 
-                                <option value="">제목</option>
-                                <option v-for="(txt, index) in koreans" :value="txt" v-bind:key='index'>{{ txt }}</option>
-                            </select>
-                        </div>
-                    </div>
+                    </template>
                 </div>
 
-                <!-- 검색결과 있을 때  -->
-                <div class="wrap-program" v-if="freeList.List.length>0">
-                    <ul>
-                        <li v-on:click="clickInterface('content',item.BroadcastID.toString())" v-for="(item,index) in freeList.List" v-bind:key='index'>
-                            <a>
-                                <span class="img" v-lazy-container="{ 
-                                    selector: 'img', 
-                                    error: movieDefaultImg, 
-                                    loading: movieDefaultImg 
-                                }"><img :data-src="item.PosterPicture" :alt="item.Title"></span>
-                                <div class="tit" v-html="item.Title"></div></a>
-                        </li>
-                    </ul>
-                </div>                
-
-                <infinite-loading @infinite="infiniteHandler" spinner="spiral" :identifier="infiniteId">
-                    <div slot="no-results" v-show="freeList.List.length==0">
-                        <span style="display: inline-block;padding-top: 50px;color: #a2a2a2;font-size: 16px;line-height: 29px;background: url(https://m.imbc.com/wiz/mbcapp/v2/static/images/ico-noti.png) no-repeat center top;background-size: 36px;">검색하신 프로그램이 존재하지 않습니다. <br>다른 키워드로 다시 검색해주세요.</span>
+                <!-- Best 10 -->
+                <div class="wrap-area wrap-best">
+                    <h2 class="tit-sec">BEST 10</h2>
+                    <div class="curation">          
+                        <div class="type_row" id="bestSlide">
+                            <div class="slide">
+                                <ul>
+                                    <li v-for="(item,index) in best10List" v-on:click="clickInterface('content', item.BroadcastId)" v-bind:key='index'>
+                                        <a><span class="img" v-lazy-container="{ 
+                                        selector: 'img', 
+                                        error: movieDefaultImg, 
+                                        loading: movieDefaultImg 
+                                    }"><img :data-src="item.Img" :alt="item.Title"></span>
+                                        <p class="txt" v-html="item.Title"></p></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">(c)2021 iMBC</div>
-                </infinite-loading>       
-            </div>
-        </section>
-        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>   
+                </div>
+                
+                <div class="wrapper wrap-search">
+                    <div class="tabs">
+                        <ul>
+                            <li :class="{on: initLabeling.broad == 'drama'}" @click="categoryDataFilter('drama',1)"><button>드라마</button></li>
+                            <li :class="{on: initLabeling.broad == 'variety'}" @click="categoryDataFilter('variety',2)"><button>예능</button></li>
+                            <li :class="{on: initLabeling.broad == 'culture'}" @click="categoryDataFilter('culture',3)"><button>시사교양</button></li>
+                        </ul>
+                    </div>
+                    <div class="wrap-sorts">
+                        <form class="search" onSubmit="return false;" action="return false" @submit.prevent="listDataFilter(endYear,initial, keyword)">
+                            <input ref="search" type="search" v-model='keyword' maxlength="10">
+                            <button type="button" class="btn-search"><span class="icon ico-search" :style="{ backgroundImage: 'url('+'./static/images/ico_search.png'+')'}">검색하기</span></button>
+                        </form>
+                        <div class="wrap-select">
+                            <div class="select-box">
+                                <select name="" v-model='endYear' ref="year" @change="listDataFilter($event.target.value,initial,keyword)">
+                                    <option v-for="(year, index) in years" :value="year[1]" v-bind:key='index'>{{ year[0] }}</option>
+                                </select>
+                            </div>
+                            <div class="select-box">
+                                <select name="" v-model='initial' ref="title" @change="listDataFilter(endYear, $event.target.value, keyword)"> 
+                                    <option v-for="(ko, index) in koreans" :value="ko[1]" v-bind:key='index'>{{ ko[0] }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 검색결과 있을 때  -->
+                    <div class="wrap-program" v-if="freeList.List.length>0">
+                        <ul>
+                            <li v-on:click="clickInterface('content',item.BroadcastID.toString())" v-for="(item,index) in freeList.List" v-bind:key='index'>
+                                <a>
+                                    <span class="img" v-lazy-container="{ 
+                                        selector: 'img', 
+                                        error: movieDefaultImg, 
+                                        loading: movieDefaultImg 
+                                    }"><img :data-src="item.PosterPicture" :alt="item.Title"></span>
+                                    <div class="tit" v-html="item.Title"></div></a>
+                            </li>
+                        </ul>
+                    </div>                
+
+                    <infinite-loading @infinite="infiniteHandler" spinner="spiral" :identifier="infiniteId">
+                        <div slot="no-results" v-show="freeList.List.length==0">
+                            <span style="display: inline-block;padding-top: 50px;color: #a2a2a2;font-size: 16px;line-height: 29px;background: url(https://m.imbc.com/wiz/mbcapp/v2/static/images/ico-noti.png) no-repeat center top;background-size: 36px;">검색하신 프로그램이 존재하지 않습니다. <br>다른 키워드로 다시 검색해주세요.</span>
+                        </div>
+                        <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">(c)2021 iMBC</div>
+                    </infinite-loading>       
+                </div>
+            </section>
+            <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>   
+        </div>
     </div>
 </template>
 
 <script>
 import {
-  checkMobile,
   getDateFormat,
-  bannerDefaultImg,
   sliderType,
   sliderBanner,
   getCookie
 } from "../common/common.js";
 import InfiniteLoading from "vue-infinite-loading";
-
-
 
 export default{
     props:['userAgent'],
@@ -203,44 +198,48 @@ export default{
         this.UiFlicking();
     },
     beforeUpdate(){
-        this.$nextTick(()=>{
-        if(!this.initRender) {
-            sliderBanner();
-            this.initRender = true; 
-        } 
-        });
     },
     updated() {
-        this.$nextTick(()=>{
-            this.UiFlicking();
-        });
+        this.$nextTick(()=> { 
+            if(!this.initRender && sliderBanner()){
+                this.initRender = true; 
+            }
+            this.UiFlicking();      
+        })
     },
     computed: {
         years(){
             const year = new Date().getFullYear();
             var arr = new Array();
             arr = Array.from({ length: year - 2000 }, (value, index) => year - index );
-            return arr;
+            const yearsList = new Map();
+            yearsList.set('연도별', 0);
+            (arr).forEach(e => {
+                yearsList.set(e, e)
+            });
+            yearsList.set("2000년 이전", 2000)
+            return yearsList;
         },
         koreans(){
-            var arr = [
-                "ㄱ",
-                "ㄴ",
-                "ㄷ",
-                "ㄹ",
-                "ㅁ",
-                "ㅂ",
-                "ㅅ",
-                "ㅇ",
-                "ㅈ",
-                "ㅊ",
-                "ㅋ",
-                "ㅌ",
-                "ㅍ",
-                "ㅎ",
-                "기타",
-            ];
-            return arr;
+             const koreansList = new Map([
+                ["제목", ""],
+                ["ㄱ",  "ㄱ"],
+                ["ㄴ",  "ㄴ"],
+                ["ㄷ",  "ㄷ"],
+                ["ㄹ",  "ㄹ"],
+                ["ㅁ",  "ㅁ"],
+                ["ㅂ",  "ㅂ"],
+                ["ㅅ",  "ㅅ"],
+                ["ㅇ",  "ㅇ"],
+                ["ㅈ",  "ㅈ"],
+                ["ㅊ",  "ㅊ"],
+                ["ㅋ",  "ㅋ"],
+                ["ㅌ",  "ㅌ"],
+                ["ㅍ",  "ㅍ"],
+                ["ㅎ",  "ㅎ"],
+                ["기타",  "기타"],
+            ]);
+            return koreansList;
         },
     },
     methods: {
@@ -440,6 +439,9 @@ export default{
         categoryDataFilter(broad, subCategoryId){
             this.initLabeling.broad = broad;
             this.initLabeling.subCategoryId = subCategoryId;
+            this.endYear = 0;
+            this.keyword = '';
+            this.initial = '';
             this.changeType();
             return false;
         },
@@ -497,6 +499,6 @@ export default{
     }
 }
 </script>
-<style scoped lang='scss' src='../../static/css/nowFree.css'></style>
-<style scoped lang='scss' src='../../static/css/sub.css'></style>
+<style scoped src='../../static/css/nowFree.css'></style>
+<style scoped src='../../static/css/sub.css'></style>
 

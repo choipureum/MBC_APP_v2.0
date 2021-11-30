@@ -69,9 +69,10 @@
 </template>
 
 <script>
-import {checkMobile, getDateFormat, getParameter, sliderBanner, bannerDefaultImg, ImgLazyLoading } from "../common/common.js";
+import {getDateFormat, sliderBanner} from "../common/common.js";
 
 export default{
+    props:['userAgent'],
     data(){
         return{
             today:"",
@@ -84,7 +85,6 @@ export default{
         }
     },
     mounted(){
-        this.userAgent = checkMobile();
         var _that = this;
         _that.Init();
     },

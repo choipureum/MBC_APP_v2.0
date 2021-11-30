@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {checkMobile, getDateFormat, bannerDefaultImg} from "../common/common.js";
+import {checkMobile, getDateFormat} from "../common/common.js";
 
 export default{
     props:['userAgent'],
@@ -41,7 +41,6 @@ export default{
         }
      },
      mounted() {
-        this.userAgent = checkMobile();
         var _that = this;
         _that.Init(); 
      },
