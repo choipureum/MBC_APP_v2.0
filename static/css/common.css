@@ -31,10 +31,10 @@ body{background:#20201e;color:#fff;font-size:16px;letter-spacing:-.075em;font-fa
 body img {width: 100%}
 
 .gnb{width: 100%;position: fixed;top: 0;padding:2px 0 0;height: 46px;background-color: rgba(0, 0, 0, 0.4);line-height: 46px;border-bottom: 1px solid rgba(255, 255, 255, 0.1);z-index: 99;}
-.gnb .slide{overflow-x: auto;width: 100%;padding: 0 0 0 6%;box-sizing: border-box;-webkit-overflow-scrolling: touch;}
+.gnb .slide{overflow-x: auto;width: 100%;padding: 0 2%;box-sizing: border-box;-webkit-overflow-scrolling: touch;}
 .gnb .slide::-webkit-scrollbar {display: none; /* Chrome, Safari, Opera*/}
-.gnb .slide ul{overflow: hidden;padding-right: 6%}
-.gnb .slide ul li{float: left;margin-left: 12px;font-size: 15px;color: #fff;letter-spacing: -0.75px;position: relative;font-family: 'notokr-regular';}
+.gnb .slide ul{overflow: hidden;margin: 0 auto;display: flex;justify-content: center;}
+.gnb .slide ul li{margin-left: 12px;font-size: 15px;color: #fff;letter-spacing: -0.75px;position: relative;font-family: 'notokr-regular';}
 .gnb .slide ul li:first-child{margin: 0;}
 .gnb .slide ul li a{box-sizing: border-box;display: block;padding: 0 1px;}
 .gnb .slide ul li.on{height: 45px;font-family: 'notokr-bold'}

@@ -8,13 +8,13 @@
  */
 -->
 <template>
-           <div class="wrap_news">
+           <div class="wrap_news" v-show="initRender">
                 <!-- MBC NEWS -->    
                 <div v-if="newsList.main.length > 0" class="visual_top" :data-title="newsList.main[0].Title" v-on:click="clickInterface(newsList.main[0].Link)">
                     <span class="img"><img src="../../static/images/mbcnews_logo.png" alt="MBC 뉴스"></span>
                     <div class="news_top">
-                        <a>
-                            <img :src="newsList.main[0].Image" :alt="newsList.main[0].Title">
+                        <a v-lazy-container="{ selector: 'img' }">
+                            <img :data-src="newsList.main[0].Image" :alt="newsList.main[0].Title">
                             <div class="wrap_txt">
                                 <span class="title ellipsis" v-html="newsList.main[0].Title"></span>
                             </div>
@@ -23,8 +23,8 @@
                 </div>
                 <div class="wrapper news_mid">
                     <div class="half" v-for="(item,index) in newsList.half" v-on:click="clickInterface(item.Link)" :key='index'>
-                        <a>
-                            <img :src="item.Image" :alt="item.Title">
+                        <a v-lazy-container="{ selector: 'img' }">
+                            <img :data-src="item.Image" :alt="item.Title">
                             <span class="title ellipsis2" v-html="item.Title"></span>
                         </a>
                     </div>
@@ -36,7 +36,7 @@
                 </div>
 
                 <!--MBC NEWSDESK-->
-                <div class="newsdesk">
+                <div class="newsdesk" v-show="newsDeskList.length > 0" >
                     <div class="ch_info">
                         <span class="img"><img src="../../static/images/mbcnews_thumb.png" alt="뉴스데스크"></span>
                         <div class="txt_info">
@@ -58,6 +58,7 @@
                 </div>
                 <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>
             </div>
+            
 </template>
 
 <script>
@@ -66,7 +67,8 @@ import {getDateFormat, sliderBanner} from "../common/common.js";
 export default{
     props:['userAgent'],
     data(){
-        return{
+        return{   
+            initRender:false,
             today:"",
             newsList:{
                 main:[],
@@ -78,7 +80,16 @@ export default{
     },
     mounted(){
         var _that = this;
-        _that.Init();
+        try{
+            _that.Init();
+        }catch(error){
+            console.log(error)    
+        }
+    },
+    updated() {
+        this.$nextTick(()=>{
+            this.initRender = true;
+        });
     },
     methods: {
         Init(){
@@ -156,4 +167,4 @@ export default{
     }
 }
 </script>
-<style scoped lang='scss' src='../../static/css/sub.css'></style>
+<style scoped src='../../static/css/sub.css'></style>

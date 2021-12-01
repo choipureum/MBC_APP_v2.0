@@ -24,6 +24,7 @@ Vue.component('gnb-menu', {
     ,
     data(){
         return {
+            render:false,
             userAgent:"",
             GnbMenu: [],
             idx: 0
@@ -34,9 +35,10 @@ Vue.component('gnb-menu', {
         _that.Init();
     },  
     beforeUpdate(){
-        this.$nextTick(function () {
+        this.$nextTick(() => {
             if(!this.render){
                 gnbHeader();
+                this.render= true;
             }
             gnbMove();
         }) 

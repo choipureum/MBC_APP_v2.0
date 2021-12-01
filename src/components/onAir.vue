@@ -8,7 +8,7 @@
  */
 -->
 <template>
-        <div class='wrap_onair'>
+        <div class='wrap_onair' v-show="initRender">
             <!-- 프로모션 배너 타입 B (배경이미지 + 텍스트) -->
             <div class="wrap_banner" v-if="topBanner.length > 0" v-on:click="clickInterface('banner', topBanner[0].Info.Relation.ScheduleCode, topBanner[0].Info.Relation.NoticeMsg, topBanner[0].Info.Relation.ActionType,  topBanner[0].Info.Relation.LinkType, topBanner[0].Info.Relation.LinkURL)">
                 <h2 class="blind">홍보 배너</h2>
@@ -104,6 +104,7 @@ export default {
     props:['userAgent'],
     data(){
         return{
+            initRender:false,
             topBanner:[],
             sportsList:[],
             programList:[],
@@ -116,7 +117,9 @@ export default {
         _that.Init(); 
     },
     updated() {
-        
+        this.$nextTick(()=>{
+            this.initRender = true;
+        });
     },
     computed: {
  

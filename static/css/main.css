@@ -1,14 +1,4 @@
-﻿/*notch ¼¼·Î*/
-/*body{padding-top: calc(constant(safe-area-inset-top));padding-top: calc(env(safe-area-inset-top))}*/
-/*notch °¡·Î */
-/*body{
-    padding-right:constant(safe-area-inset-right);
-    padding-left:constant(safe-area-inset-left);
-    padding-right:env(safe-area-inset-right);
-    padding-left:env(safe-area-inset-left);
-}*/
-
-.wrapper {
+﻿.wrapper {
     margin: 0 6.25% 35px;
     position: relative;
 }

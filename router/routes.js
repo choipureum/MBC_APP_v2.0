@@ -18,14 +18,14 @@ export default new VueRouter({
             props:{
                 isAuto: autoStatus("isAuto"),
                 userAgent: mobileStatus()
-            }
+            },
         },
         {
             path: '/news',
             component: () => import('../src/components/news.vue'),
             props:{
                 userAgent: mobileStatus()
-            }
+            },
         },
         {
             path: '/onAir',

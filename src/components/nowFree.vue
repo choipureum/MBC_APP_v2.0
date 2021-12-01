@@ -8,7 +8,7 @@
  */
 -->
 <template>
-    <div class='chHome nowfree'>
+    <div class='chHome nowfree' v-show="rendering">
         <div class='container'>
             <!--상단 Main Top Slider -->
             <section class="program-wrap">
@@ -17,7 +17,7 @@
                         <div :class="{'swiper-wrapper': mainTopList.length > 1}">
                             <div class="swiper-slide" :style="{'background':'url('+'https://img.imbc.com/template/'+item.MImg+')'}" v-for="(item,index) in mainTopList" v-on:click="clickInterface('topBanner',item.MLinkUrl)" v-bind:key='index'>
                                 <a> 
-                                    <div class="img"><img :src="'https://img.imbc.com/template/'+item.MImg" :alt="item.MTitle"></div> 
+                                    <div class="img" ><img :src="'https://img.imbc.com/template/'+item.MImg" :alt="item.MTitle"></div> 
                                     <div class="txt-wrap"><p class="title ellipsis2" v-html="item.MTitle"></p> <p class="program ellipsis" v-html="item.MContent"></p>
                                     </div>
                                 </a> 
@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Best 10 -->
-                <div class="wrap-area wrap-best">
+                <div class="wrap-area wrap-best" v-if="best10List.length > 0">
                     <h2 class="tit-sec">BEST 10</h2>
                     <div class="curation">          
                         <div class="type_row" id="bestSlide">
@@ -174,6 +174,7 @@ export default{
     data(){
         return{
             movieDefaultImg:"https://m.imbc.com/wiz/mbcapp/v2/static/images/default_thum_vod_movie_list.png",
+            rendering:false,
             mainTopList: [],
             userSeamList: {
                 username: "",
@@ -216,6 +217,7 @@ export default{
     },
     updated() {
         this.$nextTick(()=>{
+            this.rendering = true;
             this.UiFlicking();
         });
     },

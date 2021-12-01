@@ -238,7 +238,6 @@ export default{
     props:['isAuto','userAgent'],
     data(){
         return {
-            isLoading: true,
             initRender: false,
             selectedCategory: 'A',
             topBanner:[],
@@ -259,7 +258,7 @@ export default{
     },
     beforeUpdate(){
         this.$nextTick(()=>{
-        if(!this.initRender) {
+        if(!this.initRender && this.itemList.length>0) {
             sliderBanner();
             this.initRender = true; 
         } 
@@ -459,5 +458,5 @@ export default{
 }
 </script>
 
-<style scoped lang='scss' src='../../static/css/main.css'></style>
+<style scoped src='../../static/css/main.css'></style>
 

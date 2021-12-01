@@ -114,7 +114,6 @@ export const gnbHeader = () => {
 export const gnbMove = () => {
     scrollCenter('.gnb .slide', $('.gnb ul li.on'));
 }
-
 const scrollX = (obj, n, padding) => {
     var objNode, objSlide, slideLi;
     objNode = $(obj);
@@ -122,7 +121,7 @@ const scrollX = (obj, n, padding) => {
     slideLi = objSlide.find("li");
     var liMargin = (slideLi.length -1) * n;
     var liArr = [];
-    /* slide width */
+
     slideLi.each(function(index, item){ 
         var w = item.clientWidth;
         if(w == 0) w = liMargin * 100;

@@ -8,7 +8,7 @@
  */
 -->
 <template>
-    <div class='wrap_vod'>
+    <div class='wrap_vod' v-show="initRender">
        <!-- 상단 TOP 배너-->
         <div class="wrap_banner" v-if="topBanner.length > 0" v-on:click="clickInterface('banner', topBanner[0].Info.Relation.BID, topBanner[0].Info.Relation.LinkType, topBanner[0].Info.Relation.LinkURL, topBanner[0].Info.Relation.NoticeMsg)">
             <h2 class="blind">홍보 배너</h2>
@@ -154,7 +154,7 @@
         </div>
 
         <!-- 구작 추천 -->
-        <div v-if="oldRecommendVODList != null" class="wrap_legend">
+        <div v-if="oldRecommendVODList.List.length > 0" class="wrap_legend">
             <h2 class="b_title">구작추천</h2>
             <div class="type_row type2" id="row6">
                 <div class="slide">
@@ -185,6 +185,7 @@ export default{
   props:['userAgent'],
   data(){
     return{
+        initRender:false,
         movieDefaultImg:"https://m.imbc.com/wiz/mbcapp/v2/static/images/default_thum_vod_movie_list.png",
         topBanner: [], // 상단배너
         programPromotionList: {
@@ -220,10 +221,12 @@ export default{
     var _that = this;
     _that.Init();
     this.UiFlicking();
+
   },
-  updated: function () {
-    this.$nextTick(function () {
+  updated() {
+    this.$nextTick(() =>{
       this.UiFlicking();
+      this.initRender = true;
     });
   },
   watch:{
