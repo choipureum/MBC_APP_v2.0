@@ -1,18 +1,10 @@
 <!--
 /**
- * @module entrypoint
- * @name onAriVue.js
- * @description    
- * 
- *      VUE entry
- *      onAir 실시간 온에어 webview
- * 
- * @function
- * 
- *      1. onAir: 
- *          스포츠, 제작발표회, TV
- * 
- * (c) 2021 iMBC
+ * @router component
+ * @name onAir.vue
+ * @title mbc 온에어 컴포넌트
+ * @description 스포츠,제작발표회,편성표
+ * @author (c) 2021 iMBC
  */
 -->
 <template>

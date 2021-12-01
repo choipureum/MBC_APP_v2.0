@@ -1,3 +1,12 @@
+<!--
+/**
+ * @component
+ * @name corona.vue
+ * @title 코로나 현황 컴포넌트
+ * @description 메인 타임라인 중단 코로나 현황
+ * @author (c) 2021 iMBC
+ */
+-->
 <template>
              <section class="wrapper wrap_corona" v-if='Status.DecideTotal != 0'>
                  <div class="box">

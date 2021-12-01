@@ -1,3 +1,12 @@
+<!--
+/**
+ * @router component
+ * @name nowFree.vue
+ * @title mbc 지금무료 컴포넌트
+ * @description 지금무료
+ * @author (c) 2021 iMBC
+ */
+-->
 <template>
     <div class='chHome nowfree'>
         <div class='container'>
@@ -198,14 +207,17 @@ export default{
         this.UiFlicking();
     },
     beforeUpdate(){
+        this.$nextTick(()=>{
+            if(!this.initRender && this.mainTopList.length > 0) {
+                sliderBanner();
+                this.initRender = true; 
+            } 
+        });
     },
     updated() {
-        this.$nextTick(()=> { 
-            if(!this.initRender && sliderBanner()){
-                this.initRender = true; 
-            }
-            this.UiFlicking();      
-        })
+        this.$nextTick(()=>{
+            this.UiFlicking();
+        });
     },
     computed: {
         years(){
@@ -435,6 +447,7 @@ export default{
             this.keyword = keyword;
             this.initial = initial;
             this.changeType();
+            this.$refs.search.blur();
         },
         categoryDataFilter(broad, subCategoryId){
             this.initLabeling.broad = broad;

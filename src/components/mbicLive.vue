@@ -1,3 +1,12 @@
+<!--
+/**
+ * @router component
+ * @name mbicLive.vue
+ * @title 엠빅라이브 라우터 컴포넌트
+ * @description mbicLive gnb
+ * @author (c) 2021 iMBC
+ */
+-->
 <template>
     <div class='wrap-mbic'>
         <!-- 프로모션 배너 타입 B (배경이미지 + 텍스트) -->
@@ -108,11 +117,11 @@ export default{
                     case "banner":
                         if(args[2] != ""){alert(args[2]);}
                         if(args[3] == "Banner") {window.iMBCHandler.setAppBanner(args[4], args[5], '온에어');}
-                        else{window.iMBCHandler.setAppOnAir(args[1]); }
+                        else{window.iMBCHandler.setAppOnair(args[1]); }
                         break;    
 
                     case "MbicLive":
-                        if(_this.isOnAir(args[1])){ window.iMBCHandler.setAppOnAir(args[1]); }
+                        if(_this.isOnAir(args[1])){ window.iMBCHandler.setAppOnair(args[1]); }
                         else{ window.iMBCHandler.setAppBanner("WEB_OUT", link, 'mbicLive'); } 
                         break;
                 }    

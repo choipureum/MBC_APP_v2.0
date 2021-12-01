@@ -1,18 +1,10 @@
 <!--
 /**
- * @module entrypoint
- * @name newsVue.js
- * @description    
- * 
- *      VUE entry
- *      mbc news 뉴스 webview
- * 
- * @function
- * 
- *      1. news
- *      2. news desk
- * 
- * (c) 2021 iMBC
+ * @router component
+ * @name news.vue
+ * @title mbc 뉴스 컴포넌트
+ * @description mbc 뉴스, 뉴스데스크
+ * @author (c) 2021 iMBC
  */
 -->
 <template>

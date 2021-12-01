@@ -1,3 +1,12 @@
+<!--
+/**
+ * @router component
+ * @name replay.vue
+ * @title mbc 다시보기 컴포넌트
+ * @description 프로모션, 시청중인 프로그램 리스트, 꿀잼방송, 주간베스트, 에디터픽, 예고, 현장스케치, 구작추천
+ * @author (c) 2021 iMBC
+ */
+-->
 <template>
     <div class='wrap_vod'>
        <!-- 상단 TOP 배너-->
@@ -122,7 +131,7 @@
                     </div>
                 </li>
             </ul>
-            <button v-on:click="editorIdxCnt" type="button" class="btn_refresh">다음 콘텐츠 보기 {{(editorPickList.editorIdx+1)}}/{{editorPickList.totalCnt}}</button>
+            <button v-on:click="editorIdxCnt" type="button" class="btn_refresh" :style="{ backgroundImage: 'url('+'./static/images/btn_refresh.png'+')' }">다음 콘텐츠 보기 {{(editorPickList.editorIdx+1)}}/{{editorPickList.totalCnt}}</button>
         </div>
 
         <!-- 현장스케치 -->
