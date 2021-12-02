@@ -155,7 +155,6 @@
                     </infinite-loading>       
                 </div>
             </section>
-            <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-scroll>상단으로 이동</button>   
         </div>
     </div>
 </template>
@@ -165,8 +164,7 @@ import {
   getDateFormat,
   sliderType,
   sliderBanner,
-  getCookie,
-  upBtnFunc
+  getCookie
 } from "../common/common.js";
 import InfiniteLoading from "vue-infinite-loading";
 
@@ -219,7 +217,6 @@ export default{
             if(!this.initRender && this.mainTopList.length > 0 && this.best10List.length > 0) {
                 sliderBanner();
                 this.initRender = true;
-                upBtnFunc();
             }
         });
     },

@@ -225,12 +225,11 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-scroll>상단으로 이동</button>
     </div>
 </template>
 
 <script>
-import { getDateFormat, sliderBanner, ImgLazyLoading, upBtnFunc } from "../common/common.js";
+import { getDateFormat, sliderBanner, ImgLazyLoading } from "../common/common.js";
 import { scrollFn } from "../common/timelinefunction.js";
 import PreviewPlayer from "../common/previewPlayer.js";
 
@@ -265,7 +264,6 @@ export default{
         });
     }, 
     updated() {  
-        upBtnFunc();
         //첫 로드시에만 실행
         var onBtn = $('#onair_video');
         if (onBtn.length == 0) {

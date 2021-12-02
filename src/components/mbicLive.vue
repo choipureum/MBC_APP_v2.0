@@ -34,12 +34,11 @@
                 </li>
             </ul>
         </div>
-        <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>   
     </div>
 </template>
 
 <script>
-import {checkMobile, getDateFormat, upBtnFunc } from "../common/common.js";
+import {checkMobile, getDateFormat } from "../common/common.js";
 
 export default{
     props:['userAgent'],
