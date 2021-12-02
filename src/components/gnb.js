@@ -8,12 +8,12 @@ import {getDateFormat, gnbHeader, gnbMove, checkMobile } from "../common/common.
 
 Vue.component('gnb-menu', {
     template: `
-            <nav class="gnb" >
+            <nav class="gnb" ref="gnb">
                 <div class="slide">
-                    <ul>
+                    <ul ref="ul">
                         <li v-on:click="stateChange(index)" v-for="(item,index) in GnbMenu" v-if="item.state=='Y'" :class="{'on': index == idx}">
                             <router-link :to="item.link" v-if='item.weblinkpos=="GNB"'>
-                                <a v-html="item.menuName"></a>
+                                <a v-html="item.menuName" style="white-space:nowrap"></a>
                             </router-link>
                             <a v-else v-on:click="clickGNBInterface(item.weblinkpos, item.link, item.menuName)" v-html="item.menuName"></a>
                         </li>

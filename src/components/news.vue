@@ -56,13 +56,13 @@
                         </ul>
                     </div>
                 </div>
-                <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>
+                <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-scroll>상단으로 이동</button>
             </div>
             
 </template>
 
 <script>
-import {getDateFormat, sliderBanner} from "../common/common.js";
+import {getDateFormat, sliderBanner, upBtnFunc } from "../common/common.js";
 
 export default{
     props:['userAgent'],
@@ -89,6 +89,7 @@ export default{
     updated() {
         this.$nextTick(()=>{
             this.initRender = true;
+            upBtnFunc();
         });
     },
     methods: {

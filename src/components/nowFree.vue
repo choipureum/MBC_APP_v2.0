@@ -12,13 +12,13 @@
         <div class='container'>
             <!--상단 Main Top Slider -->
             <section class="program-wrap">
-                <div class="chHome-wrap" v-if="mainTopList.length > 0">
+                <div class="chHome-wrap">
                     <div id="chHomeWrap" class="chHome-area type-full swiper-container">
-                        <div :class="{'swiper-wrapper': mainTopList.length > 1}">
+                        <div :class="{'swiper-wrapper': mainTopList.length > 0}">
                             <div class="swiper-slide" :style="{'background':'url('+'https://img.imbc.com/template/'+item.MImg+')'}" v-for="(item,index) in mainTopList" v-on:click="clickInterface('topBanner',item.MLinkUrl)" v-bind:key='index'>
                                 <a> 
-                                    <div class="img" ><img :src="'https://img.imbc.com/template/'+item.MImg" :alt="item.MTitle"></div> 
-                                    <div class="txt-wrap"><p class="title ellipsis2" v-html="item.MTitle"></p> <p class="program ellipsis" v-html="item.MContent"></p>
+                                    <div class="img" ref="sliderImg"><img :src="'https://img.imbc.com/template/'+item.MImg" :alt="item.MTitle"></div> 
+                                    <div class="txt-wrap"><p class="title ellipsis2" v-html="item.MTitle"></p><p class="program ellipsis" v-html="item.MContent"></p>
                                     </div>
                                 </a> 
                             </div>
@@ -155,7 +155,7 @@
                     </infinite-loading>       
                 </div>
             </section>
-            <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>   
+            <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-scroll>상단으로 이동</button>   
         </div>
     </div>
 </template>
@@ -165,7 +165,8 @@ import {
   getDateFormat,
   sliderType,
   sliderBanner,
-  getCookie
+  getCookie,
+  upBtnFunc
 } from "../common/common.js";
 import InfiniteLoading from "vue-infinite-loading";
 
@@ -208,17 +209,18 @@ export default{
         this.UiFlicking();
     },
     beforeUpdate(){
-        this.$nextTick(()=>{
-            if(!this.initRender && this.mainTopList.length > 0) {
-                sliderBanner();
-                this.initRender = true; 
-            } 
-        });
+
     },
     updated() {
-        this.$nextTick(()=>{
-            this.rendering = true;
+        this.$nextTick(function(){
             this.UiFlicking();
+            this.rendering = true;
+            
+            if(!this.initRender && this.mainTopList.length > 0 && this.best10List.length > 0) {
+                sliderBanner();
+                this.initRender = true;
+                upBtnFunc();
+            }
         });
     },
     computed: {

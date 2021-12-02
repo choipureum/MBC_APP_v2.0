@@ -8,38 +8,38 @@
  */
 -->
 <template>
-             <section class="wrapper wrap_corona" v-if='Status.DecideTotal != 0'>
-                 <div class="box">
-                     <h3>코로나19 발생 현황<span class="standard">({{Status.StateDate}} 기준)</span></h3>
-                     <div class="c-number" :style="{ backgroundImage: 'url('+'./static/images/bg-covid1.jpg'+')' }">
-                         <div>
-                             <strong>확진자</strong>
-                             <span class="num">{{Status.DecideTotal}}</span>
-                             <span class="num-change">(<span :style="{ backgroundImage: 'url('+'./static/images/ico-arr-up.png'+')' }">{{Status.DecideToday}}</span>)</span>
-                         </div>
-                         <div>
-                             <strong>사망자</strong>
-                             <span class="num">{{Status.DeathTotal}}</span>
-                             <span class="num-change">(<span :style="{ backgroundImage: 'url('+'./static/images/ico-arr-up.png'+')' }">{{Status.DeathToday}}</span>)</span>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="box">
-                     <h3>예방접종 현황<span class="standard">({{Vaccine.StateDate}} 기준)</span></h3>
-                     <div class="c-number" :style="{ backgroundImage: 'url('+'./static/images/bg-covid2.jpg'+')' }">
-                         <div>
-                             <strong>1회차 접종</strong>
-                             <span class="num">{{Vaccine.FirstTotal}}</span>
-                             <span class="num">({{Vaccine.FirstToday}})</span>
-                         </div>
-                         <div>
-                             <strong>2회차 접종</strong>
-                             <span class="num">{{Vaccine.SecondTotal}}</span>
-                             <span class="num">({{Vaccine.SecondToday}})</span>
-                         </div>
-                     </div>
-                 </div>
-             </section>
+    <section class="wrapper wrap_corona" v-if='Status.DecideTotal != 0'>
+        <div class="box">
+            <h3>코로나19 발생 현황<span class="standard">({{Status.StateDate}} 기준)</span></h3>
+            <div class="c-number" :style="{ backgroundImage: 'url('+'./static/images/bg-covid1.jpg'+')' }">
+                <div>
+                    <strong>확진자</strong>
+                    <span class="num">{{Status.DecideTotal}}</span>
+                    <span class="num-change">(<span :style="{ backgroundImage: 'url('+'./static/images/ico-arr-up.png'+')' }">{{Status.DecideToday}}</span>)</span>
+                </div>
+                <div>
+                    <strong>사망자</strong>
+                    <span class="num">{{Status.DeathTotal}}</span>
+                    <span class="num-change">(<span :style="{ backgroundImage: 'url('+'./static/images/ico-arr-up.png'+')' }">{{Status.DeathToday}}</span>)</span>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <h3>예방접종 현황<span class="standard">({{Vaccine.StateDate}} 기준)</span></h3>
+            <div class="c-number" :style="{ backgroundImage: 'url('+'./static/images/bg-covid2.jpg'+')' }">
+                <div>
+                    <strong>1회차 접종</strong>
+                    <span class="num">{{Vaccine.FirstTotal}}</span>
+                    <span class="num">({{Vaccine.FirstToday}})</span>
+                </div>
+                <div>
+                    <strong>2회차 접종</strong>
+                    <span class="num">{{Vaccine.SecondTotal}}</span>
+                    <span class="num">({{Vaccine.SecondToday}})</span>
+                </div>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>

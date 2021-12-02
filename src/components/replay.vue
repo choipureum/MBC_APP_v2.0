@@ -174,12 +174,12 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>   
+        <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-scroll>상단으로 이동</button>   
     </div>
 </template>
 
 <script>
-import {getDateFormat, sliderType, getCookie} from "../common/common.js";
+import { getDateFormat, sliderType, getCookie, upBtnFunc } from "../common/common.js";
 
 export default{
   props:['userAgent'],
@@ -227,6 +227,7 @@ export default{
     this.$nextTick(() =>{
       this.UiFlicking();
       this.initRender = true;
+      upBtnFunc();
     });
   },
   watch:{

@@ -34,17 +34,18 @@
                 </li>
             </ul>
         </div>
-        <button type="button" class="scroll-top" id="scrollTop" style="display: none;" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-once>상단으로 이동</button>   
+        <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()'>상단으로 이동</button>   
     </div>
 </template>
 
 <script>
-import {checkMobile, getDateFormat} from "../common/common.js";
+import {checkMobile, getDateFormat, upBtnFunc } from "../common/common.js";
 
 export default{
     props:['userAgent'],
      data(){
         return{
+            btnShow: true,
             initRender :false,
             topBanner:[],
             scheduleList:[]
@@ -53,15 +54,17 @@ export default{
      mounted() {
         var _that = this;
         _that.Init(); 
+
      },
     updated() {
         this.$nextTick(()=>{
             this.initRender = true;
+            upBtnFunc();
         });
     },
-     computed: {
+    computed: {
  
-     },
+    },
      methods: {
         Init() {
             try {
@@ -160,4 +163,11 @@ export default{
  };
 </script>
 
-<style scoped src='../../static/css/sub.css'></style>
+<style scoped src='../../static/css/sub.css'>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>

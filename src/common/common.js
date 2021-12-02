@@ -1,17 +1,20 @@
 /**
  * @title scroll to Top 상단 이동 버튼 ON
  * @returns void
- */
- $(function () {
-    $(window).scroll(() => {
-        if ($(window).scrollTop() == 0) {
-            $('#scrollTop').fadeOut(300);
-        } else {
-            $('#scrollTop').fadeIn(300);
-        }
-    });
-});
+*/
 
+export const upBtnFunc = () =>{
+    $(function(){
+        $(window).scroll(() => {
+            if ($(window).scrollTop() == 0) {
+                $('#scrollTop').fadeOut(300);
+            } else {
+                $('#scrollTop').fadeIn(300);
+             }
+        }); 
+    })
+}
+ 
 /**
  * @title dateTime url 콜백 파라미터
  * @returns ?date= {yyyymmdd}
@@ -77,7 +80,7 @@ export const getParameter = (sname) => {
  *      화면 슬라이더 배너
  *
  */
-export const sliderBanner = () => {
+ export const sliderBanner = () => {
     //메인 슬라이더
     if ($(".wrap_home").length) {
       var topWrap = new Swiper(".visual_slide", {
@@ -92,11 +95,10 @@ export const sliderBanner = () => {
     else if($(".nowfree").length){
         //main slide
         var mySwiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
+            loop:true,
             pagination: {
                 el: '.pagination',
             },
-            loop:true
         })
     }
   };
@@ -109,11 +111,12 @@ export const sliderBanner = () => {
  *
  */
 export const gnbHeader = () => {
-    scrollX('.gnb', 17, 2);
+    scrollX('.gnb', 23, 2);
 };
 export const gnbMove = () => {
     scrollCenter('.gnb .slide', $('.gnb ul li.on'));
 }
+
 const scrollX = (obj, n, padding) => {
     var objNode, objSlide, slideLi;
     objNode = $(obj);
@@ -123,7 +126,7 @@ const scrollX = (obj, n, padding) => {
     var liArr = [];
 
     slideLi.each(function(index, item){ 
-        var w = item.clientWidth;
+        var w = item.offsetWidth;
         if(w == 0) w = liMargin * 100;
         liArr.push(w);        
     });
@@ -134,7 +137,7 @@ const scrollX = (obj, n, padding) => {
 const scrollCenter = (obj, item) => {
     var windowWidth = $(window).width()/2;
     var move = item[0].offsetLeft;
-    var thisWidth = item[0].clientWidth/2;
+    var thisWidth = item[0].offsetWidth/2;
     var scrollMove = move-windowWidth+thisWidth;
     if( item[0].offsetLeft > windowWidth ){
         $(obj).stop().animate({scrollLeft : scrollMove}, 100, "linear");
@@ -160,7 +163,6 @@ export const sliderType = (obj, n) => {
     var liMargin = (slideLiCount > 3 ? slideLiCount - 1 : slideLiCount)  * n;
     objSlide.children("ul").width(slideLi.width() * slideLiCount + liMargin);
 }
-
 
 /** 
  * @title Get 쿠키 정보
