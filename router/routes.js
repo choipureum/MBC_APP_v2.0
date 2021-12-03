@@ -14,10 +14,11 @@ export default new VueRouter({
     routes: [
         {
             path: '/' ,
+            //Lazy Load - prefetch
             component: () => import('../src/components/timeLine.vue'),
             props:{
                 isAuto: autoStatus("isAuto"),
-                userAgent: mobileStatus()
+                userAgent: mobileStatus(),    
             },
         },
         {

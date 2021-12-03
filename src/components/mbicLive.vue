@@ -12,8 +12,8 @@
         <!-- 프로모션 배너 타입 B (배경이미지 + 텍스트) -->
         <div class="wrap_banner" v-if="topBanner.length > 0" v-on:click="clickInterface('banner', topBanner[0].Info.Relation.ScheduleCode, topBanner[0].Info.Relation.NoticeMsg, topBanner[0].Info.Relation.ActionType, topBanner[0].Info.Relation.LinkType, topBanner[0].Info.Relation.LinkURL)">
             <h2 class="blind">홍보 배너</h2>
-            <a v-lazy-container="{ selector: 'img' }">
-                <img :data-src="topBanner[0].Info.Image" :alt="topBanner[0].Info.Title">
+            <a>
+                <img :src="topBanner[0].Info.Image" :alt="topBanner[0].Info.Title">
                     <div class="banner_txt">
                         <p class="title" v-html="topBanner[0].Info.Title"></p>
                         <p class="date" v-html="topBanner[0].Info.Desc"></p>
@@ -22,10 +22,10 @@
         </div>
 
         <!-- 엠빅 라이브 -->
-        <div v-if="scheduleList.length > 0" class="wrapper thumb_list" >
+        <div v-show="scheduleList.length > 0" class="wrapper thumb_list">
             <ul>
                 <li class="vod" v-on:click="clickInterface('MbicLive', item.ScheduleCode)" v-for="(item,index) in scheduleList" v-bind:key='index'>
-                    <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.OnAirImage" :alt="item.Title"><span class="bar" :style="{width: item.percentTime+'%'}"></span></span>
+                    <span class="img"><img :data-url="item.OnAirImage" :alt="item.Title" v-img-lazy-loading><span class="bar" :style="{width: item.percentTime+'%'}"></span></span>
                     <div>
                         <span class="title ellipsis2" v-html="item.Title"></span> 
                         <span class="program ellipsis" v-html="item.TypeTitle"></span> 
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import {checkMobile, getDateFormat } from "../common/common.js";
+import {checkMobile, getDateFormat, ImgLazyLoading } from "../common/common.js";
 
 export default{
     props:['userAgent'],
@@ -50,10 +50,12 @@ export default{
             scheduleList:[]
         }
      },
+    directives:{
+        'img-lazy-loading': ImgLazyLoading
+    },
      mounted() {
         var _that = this;
         _that.Init(); 
-
      },
     updated() {
         this.$nextTick(()=>{
@@ -126,7 +128,7 @@ export default{
 
                     case "MbicLive":
                         if(_this.isOnAir(args[1])){ window.iMBCHandler.setAppOnair(args[1]); }
-                        else{ window.iMBCHandler.setAppBanner("WEB_OUT", link, 'mbicLive'); } 
+                        else{ window.iMBCHandler.setAppBanner("WEB", link, 'mbicLive'); } 
                         break;
                 }    
             }      
@@ -143,7 +145,7 @@ export default{
                     case "MbicLive":
                         //생중계
                         if(_this.isOnAir(args[1])) { msg = { 'setAppOnair': {'sCode' : args[1] } };}
-                        else{ msg = { 'setAppBanner': { 'linkType': "WEB_OUT", 'link': link, 'title': 'mbicLive' } }; }
+                        else{ msg = { 'setAppBanner': { 'linkType': "WEB", 'link': link, 'title': 'mbicLive' } }; }
                         break;
                 }        
                 window.webkit.messageHandlers.iMBCHandler.postMessage(msg);
@@ -158,11 +160,4 @@ export default{
  };
 </script>
 
-<style scoped src='../../static/css/sub.css'>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-</style>
+<style scoped src='../../static/css/sub.css'></style>

@@ -62,7 +62,7 @@
                 <div class="wrapper thumb_list">
                     <ul>
                         <li class="vod" v-on:click="clickInterface('schedule', item.ScheduleCode)" v-for="(item,index) in scheduleList" :key='index'>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.OnAirImage" :alt="item.Title"><span class="bar" :style="{width: item.percentTime+'%'}"></span>
+                            <span class="img"><img :data-url="item.OnAirImage" :alt="item.Title" v-img-lazy-loading><span class="bar" :style="{width: item.percentTime+'%'}"></span>
                                 <span class='vod_btn_play' :style="{ backgroundImage: 'url('+'./static/images/btn_play.png'+')' }"></span>
                             </span>
                             <div>
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { checkMobile, getDateFormat } from "../common/common.js";
+import { checkMobile, getDateFormat, ImgLazyLoading } from "../common/common.js";
 
 export default {
     props:['userAgent'],
@@ -110,6 +110,9 @@ export default {
             scheduleList:[],
             radioList: []
         }
+    },
+    directives:{
+        'img-lazy-loading': ImgLazyLoading
     },
     mounted() {
         var _that = this;
@@ -236,10 +239,10 @@ export default {
                         else{window.iMBCHandler.setAppOnair(args[1]);}      
                         break;
                     case "sports":
-                        window.iMBCHandler.setAppBanner("WEB_OUT", args[1], '스포츠');
+                        window.iMBCHandler.setAppBanner("WEB", args[1], '스포츠');
                         break;
                     case "program":
-                        window.iMBCHandler.setAppBanner("WEB_OUT", args[1], '제작발표회');
+                        window.iMBCHandler.setAppBanner("WEB", args[1], '제작발표회');
                         break;
                     case "schedule":
                         window.iMBCHandler.setAppOnair(args[1]);
@@ -255,10 +258,10 @@ export default {
                         else{msg = { 'setAppOnair': { 'sCode': args[1] } };}
                         break;
                     case "sports":
-                        msg = { 'setAppBanner': { 'linkType': "WEB_OUT", 'link': args[1], 'title': '스포츠' } };
+                        msg = { 'setAppBanner': { 'linkType': "WEB", 'link': args[1], 'title': '스포츠' } };
                         break;
                     case "program":
-                        msg = { 'setAppBanner': { 'linkType': "WEB_OUT", 'link': args[1], 'title': '제작발표회' } };
+                        msg = { 'setAppBanner': { 'linkType': "WEB", 'link': args[1], 'title': '제작발표회' } };
                         break;
                     case "schedule":
                         msg = { 'setAppOnair': { 'sCode': args[1] } };

@@ -412,6 +412,7 @@ export default{
                     case "banner":
                         if (args[6] != "") {alert(args[6]);}
                         if (args[4] == "TAB") {window.iMBCHandler.goTab(args[1]);}
+                        else if(args[4] == "FreeVOD"){ window.iMBCHandler.setAppContent('VOD', args[5], 'Y');}
                         else if (args[4] == "Clip" || args[4] == "VOD") {window.iMBCHandler.setAppContent(args[4], args[5],'N');}
                         else if (args[4] == "Live" || args[4] == "MbicLive") { window.iMBCHandler.setAppOnair(args[7]);}
                         else { window.iMBCHandler.setAppBanner(args[1], args[2], args[3]); }
@@ -438,6 +439,7 @@ export default{
                     case "banner":
                         if (args[6] != "") {alert(args[6]);}
                         if (args[4] == "TAB") {msg = {'goTab': { 'tabName': args[1] } };}
+                        else if(args[4] == "FreeVOD"){ msg = { setAppContent: { contentType: 'VOD', contentId: args[5], isFree:'Y'},};}
                         else if (args[4] == "Clip" || args[4] == "VOD") { msg = { 'setAppContent': { 'contentType': args[4], 'contentId': args[5], 'isFree':'N' } };}
                         else if (args[4] == "Live" || args[4] == "MbicLive") { msg = { 'setAppOnair': { 'sCode': args[7] } };}
                         else { msg = { 'setAppBanner': { 'linkType': args[1], 'link': args[2], 'title': args[3] } };}

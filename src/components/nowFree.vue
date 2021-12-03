@@ -8,8 +8,8 @@
  */
 -->
 <template>
-    <div class='chHome nowfree' v-show="rendering">
-        <div class='container'>
+    <div class='chHome nowfree' >
+        <div v-show="rendering" class='container'>
             <!--상단 Main Top Slider -->
             <section class="program-wrap">
                 <div class="chHome-wrap">
@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- Theme List -->
-                <div v-if="freeTheme.TotalCount > 0">
+                <div v-show="freeTheme.TotalCount > 0">
                     <template v-for="(item,index) in freeTheme.List">
                         <div class="wrap-area"  v-bind:key='index'>
                             <h2 class="tit-sec" v-html="item.MTitle"></h2>
@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Best 10 -->
-                <div class="wrap-area wrap-best" v-if="best10List.length > 0">
+                <div class="wrap-area wrap-best" v-show="best10List.length > 0">
                     <h2 class="tit-sec">BEST 10</h2>
                     <div class="curation">          
                         <div class="type_row" id="bestSlide">
@@ -108,24 +108,24 @@
                 <div class="wrapper wrap-search">
                     <div class="tabs">
                         <ul>
-                            <li :class="{on: initLabeling.broad == 'drama'}" @click="categoryDataFilter('drama',1)"><button>드라마</button></li>
-                            <li :class="{on: initLabeling.broad == 'variety'}" @click="categoryDataFilter('variety',2)"><button>예능</button></li>
-                            <li :class="{on: initLabeling.broad == 'culture'}" @click="categoryDataFilter('culture',3)"><button>시사교양</button></li>
+                            <li :class="{on: initLabeling.broad == 'drama'}" @click="categoryDataFilter('drama',1); return false"><button>드라마</button></li>
+                            <li :class="{on: initLabeling.broad == 'variety'}" @click="categoryDataFilter('variety',2); return false"><button>예능</button></li>
+                            <li :class="{on: initLabeling.broad == 'culture'}" @click="categoryDataFilter('culture',3); return false"><button>시사교양</button></li>
                         </ul>
                     </div>
                     <div class="wrap-sorts">
                         <form class="search" onSubmit="return false;" action="return false" @submit.prevent="listDataFilter(endYear,initial, keyword)">
                             <input ref="search" type="search" v-model='keyword' maxlength="10">
-                            <button type="button" class="btn-search"><span class="icon ico-search" :style="{ backgroundImage: 'url('+'./static/images/ico_search.png'+')'}">검색하기</span></button>
+                            <button type="button" class="btn-search"><span class="icon ico-search" @click="listDataFilter(endYear,initial, keyword)" :style="{ backgroundImage: 'url('+'./static/images/ico_search.png'+')'}">검색하기</span></button>
                         </form>
                         <div class="wrap-select">
                             <div class="select-box">
-                                <select name="" v-model='endYear' ref="year" @change="listDataFilter($event.target.value,initial,keyword)">
+                                <select name="" v-model='endYear' ref="year" @change="listDataFilter($event.target.value,initial,'')">
                                     <option v-for="(year, index) in years" :value="year[1]" v-bind:key='index'>{{ year[0] }}</option>
                                 </select>
                             </div>
                             <div class="select-box">
-                                <select name="" v-model='initial' ref="title" @change="listDataFilter(endYear, $event.target.value, keyword)"> 
+                                <select name="" v-model='initial' ref="title" @change="listDataFilter(endYear, $event.target.value,'')"> 
                                     <option v-for="(ko, index) in koreans" :value="ko[1]" v-bind:key='index'>{{ ko[0] }}</option>
                                 </select>
                             </div>
@@ -133,7 +133,7 @@
                     </div>
 
                     <!-- 검색결과 있을 때  -->
-                    <div class="wrap-program" v-if="freeList.List.length>0">
+                    <div class="wrap-program">
                         <ul>
                             <li v-on:click="clickInterface('content',item.BroadcastID.toString())" v-for="(item,index) in freeList.List" v-bind:key='index'>
                                 <a>
@@ -388,6 +388,7 @@ export default{
                 timeout: 10000,
                 success: function (o) {
                 if (o.TotalCount > 0) {
+                    _this.changeType();
                     $.each(o.List, function (index, item) {
                     _this.freeList.List.push(item);
                     });
@@ -440,14 +441,16 @@ export default{
             _this.freeList.List = [];
             _this.freeList.TotalCount = 0;
             _this.limit = 2;
-            this.infiniteId += 1;  
-            this.InitFreeData();
+            _this.infiniteId += 1;  
+            //_this.InitFreeData();
         },
         listDataFilter(endYear, initial, keyword){
             this.endYear = endYear;
             this.keyword = keyword;
             this.initial = initial;
             this.changeType();
+            this.InitFreeData();
+            this.keyword
             this.$refs.search.blur();
         },
         categoryDataFilter(broad, subCategoryId){
@@ -456,7 +459,8 @@ export default{
             this.endYear = 0;
             this.keyword = '';
             this.initial = '';
-            this.changeType();
+            //this.changeType();
+            this.InitFreeData();
             return false;
         },
         clickInterface (...args) {

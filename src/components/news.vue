@@ -10,11 +10,11 @@
 <template>
            <div class="wrap_news" v-show="initRender">
                 <!-- MBC NEWS -->    
-                <div v-if="newsList.main.length > 0" class="visual_top" :data-title="newsList.main[0].Title" v-on:click="clickInterface(newsList.main[0].Link)">
+                <div v-show="newsList.main.length > 0" class="visual_top" :data-title="newsList.main[0].Title" v-on:click="clickInterface(newsList.main[0].Link)">
                     <span class="img"><img src="../../static/images/mbcnews_logo.png" alt="MBC 뉴스"></span>
                     <div class="news_top">
-                        <a v-lazy-container="{ selector: 'img' }">
-                            <img :data-src="newsList.main[0].Image" :alt="newsList.main[0].Title">
+                        <a>
+                            <img :src="newsList.main[0].Image" :alt="newsList.main[0].Title" @error="defaultImg">
                             <div class="wrap_txt">
                                 <span class="title ellipsis" v-html="newsList.main[0].Title"></span>
                             </div>
@@ -23,8 +23,8 @@
                 </div>
                 <div class="wrapper news_mid">
                     <div class="half" v-for="(item,index) in newsList.half" v-on:click="clickInterface(item.Link)" :key='index'>
-                        <a v-lazy-container="{ selector: 'img' }">
-                            <img :data-src="item.Image" :alt="item.Title">
+                        <a>
+                            <img :src="item.Image" :alt="item.Title" @error="defaultImg">
                             <span class="title ellipsis2" v-html="item.Title"></span>
                         </a>
                     </div>
@@ -68,6 +68,7 @@ export default{
     data(){
         return{   
             initRender:false,
+            defaultImg: "https://m.imbc.com/wiz/mbcapp/v2/static/images/default_thum_vod_drama_list.png",
             today:"",
             newsList:{
                 main:[],
