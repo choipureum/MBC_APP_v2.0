@@ -459,9 +459,6 @@ export default{
             this.changeType();
             return false;
         },
-        moveTop(){
-            $(document).scrollTop(0);   
-        },
         clickInterface (...args) {
         /*
         * @param arguments

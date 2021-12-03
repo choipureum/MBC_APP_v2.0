@@ -2,7 +2,6 @@
  * @title scroll to Top 상단 이동 버튼 ON
  * @returns void
 */
-
 export const upBtnFunc = () =>{
     $(function(){
         $(window).scroll(() => {

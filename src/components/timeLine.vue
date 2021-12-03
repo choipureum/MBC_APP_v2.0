@@ -384,9 +384,6 @@ export default{
 
             });
         },
-        moveTop(){
-            $(document).scrollTop(0);   
-        },
         //클릭시 interface 이동
         clickInterface(...args) {
             /*

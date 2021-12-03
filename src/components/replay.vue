@@ -496,9 +496,6 @@ export default{
     urlLink(link) {
       location.href = link;
     },
-    moveTop(){
-        $(document).scrollTop(0);   
-    },
     editorIdxCnt(){
       var _this = this;
       if(_this.editorPickList.editorIdx >= 7){

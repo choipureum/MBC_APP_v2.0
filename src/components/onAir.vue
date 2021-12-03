@@ -266,10 +266,7 @@ export default {
                 }    
                 window.webkit.messageHandlers.iMBCHandler.postMessage(msg);
             }         
-        },
-        moveTop(){
-            $(document).scrollTop(0);   
-        },
+        }
     }
 }
 </script>

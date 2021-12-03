@@ -58,7 +58,6 @@ export default{
     updated() {
         this.$nextTick(()=>{
             this.initRender = true;
-            upBtnFunc();
         });
     },
     computed: {
@@ -149,9 +148,6 @@ export default{
                 }        
                 window.webkit.messageHandlers.iMBCHandler.postMessage(msg);
             }            
-        },
-        moveTop(){
-            $(document).scrollTop(0);   
         },
         isOnAir(sCode){
             var onAirList = ['MBC', 'P_everyone', 'P_drama', 'P_music', 'P_on', 'MBCNET', 'C0001', 'C0002', 'C0005', 'C0006', 'C0007', 'C0008', 'C0009'];

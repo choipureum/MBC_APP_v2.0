@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {getDateFormat, sliderBanner } from "../common/common.js";
+import { getDateFormat } from "../common/common.js";
 
 export default{
     props:['userAgent'],
@@ -159,9 +159,6 @@ export default{
                 var msg = { 'setAppBanner': { 'linkType': "APP_LINK", 'link': link, 'title': "MBC뉴스" } };
                 window.webkit.messageHandlers.iMBCHandler.postMessage(msg);
             }              
-        },
-        moveTop(){
-            $(document).scrollTop(0);   
         }
     }
 }

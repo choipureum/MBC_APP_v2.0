@@ -49,7 +49,10 @@
 
         <!-- content -->
         <router-view></router-view> 
-        <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" v-on:click='moveTop()' v-scroll>상단으로 이동</button>   
+        
+        <a href="#siteContent">
+            <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" style="display: none;" v-scroll>상단으로 이동</button>   
+        </a>
     </div>
 </body>
 </html>
