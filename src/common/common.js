@@ -209,7 +209,6 @@ export const bannerDefaultImg = (sw) => {
     };
 }
 
-
 /*
  * @title: LazyLoading
  * */

@@ -62,7 +62,7 @@
                 <div class="wrapper thumb_list">
                     <ul>
                         <li class="vod" v-on:click="clickInterface('schedule', item.ScheduleCode)" v-for="(item,index) in scheduleList" :key='index'>
-                            <span class="img"><img :data-url="item.OnAirImage" :alt="item.Title" v-img-lazy-loading><span class="bar" :style="{width: item.percentTime+'%'}"></span>
+                            <span class="img"><img :data-url="item.OnAirImage" :alt="item.Title" v-on:error="replaceByDefault" v-img-lazy-loading><span class="bar" :style="{width: item.percentTime+'%'}"></span>
                                 <span class='vod_btn_play' :style="{ backgroundImage: 'url('+'./static/images/btn_play.png'+')' }"></span>
                             </span>
                             <div>
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { checkMobile, getDateFormat, ImgLazyLoading } from "../common/common.js";
+import { checkMobile, getDateFormat, ImgLazyLoading, replaceByDefault } from "../common/common.js";
 
 export default {
     props:['userAgent'],
@@ -108,7 +108,8 @@ export default {
             sportsList:[],
             programList:[],
             scheduleList:[],
-            radioList: []
+            radioList: [],
+            defaultImg: "https://m.imbc.com/wiz/mbcapp/v2/static/images/default_thum_vod_drama_list.png",
         }
     },
     directives:{
@@ -223,6 +224,9 @@ export default {
                     }
                 }
             });
+        },     
+        replaceByDefault(e){
+            e.target.src = this.defaultImg;
         },
         clickInterface(...args) {
             /*

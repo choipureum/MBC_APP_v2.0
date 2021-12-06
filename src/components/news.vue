@@ -14,7 +14,7 @@
                     <span class="img"><img src="../../static/images/mbcnews_logo.png" alt="MBC 뉴스"></span>
                     <div class="news_top">
                         <a>
-                            <img :src="newsList.main[0].Image" :alt="newsList.main[0].Title" @error="defaultImg">
+                            <img :src="newsList.main[0].Image" :alt="newsList.main[0].Title" v-on:error="replaceByDefault">
                             <div class="wrap_txt">
                                 <span class="title ellipsis" v-html="newsList.main[0].Title"></span>
                             </div>
@@ -24,7 +24,7 @@
                 <div class="wrapper news_mid">
                     <div class="half" v-for="(item,index) in newsList.half" v-on:click="clickInterface(item.Link)" :key='index'>
                         <a>
-                            <img :src="item.Image" :alt="item.Title" @error="defaultImg">
+                            <img :src="item.Image" :alt="item.Title" v-on:error="replaceByDefault">
                             <span class="title ellipsis2" v-html="item.Title"></span>
                         </a>
                     </div>
@@ -145,6 +145,9 @@ export default{
                     }
                 }
             });
+        },
+        replaceByDefault(e){
+            e.target.src = this.defaultImg;
         },
         clickInterface(link){
             /*
