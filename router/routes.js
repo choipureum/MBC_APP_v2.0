@@ -11,6 +11,7 @@ const autoStatus = (sname) => {
 Vue.use(VueRouter)
 
 export default new VueRouter({
+    
     routes: [
         {
             path: '/' ,
@@ -64,5 +65,6 @@ export default new VueRouter({
                 userAgent: mobileStatus()
             }
         },
+        
     ]
 });

@@ -43,9 +43,11 @@
             <a href="#siteContent">본문 바로가기</a>
         </div>
         <h1 class="blind">MBC 홈</h1>
-
+        
         <a href="#siteContent">
-            <button type="button" class="scroll-top" id="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }" style="display: none;" v-scroll>상단으로 이동</button>   
+            <transition name="fade">
+                <button v-if="show" type="button" class="scroll-top" id="scrollTop" ref="scrollTop" :style="{ backgroundImage: 'url('+'./static/images/ico_top.png'+')' }">상단으로 이동</button>  
+            </transition> 
         </a>
 
         <!-- gnb menu --> 
@@ -53,6 +55,7 @@
 
         <!-- content -->
         <router-view></router-view> 
+        
     </div>
 </body>
 </html>

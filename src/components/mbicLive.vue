@@ -25,7 +25,10 @@
         <div v-show="scheduleList.length > 0" class="wrapper thumb_list">
             <ul>
                 <li class="vod" v-on:click="clickInterface('MbicLive', item.ScheduleCode)" v-for="(item,index) in scheduleList" v-bind:key='index'>
-                    <span class="img"><img :data-url="item.OnAirImage" :alt="item.Title" v-on:error="replaceByDefault" v-img-lazy-loading><span class="bar" :style="{width: item.percentTime+'%'}"></span></span>
+                    <span class="img">
+                        <img :data-url="item.OnAirImage" :alt="item.Title" v-on:error="replaceByDefault" v-img-lazy-loading><span class="bar" :style="{width: item.percentTime+'%'}"></span>
+                        <span class="vod_btn_play" :style="{ backgroundImage: 'url('+'./static/images/btn_play.png'+')' }"></span>
+                    </span>
                     <div>
                         <span class="title ellipsis2" v-html="item.Title"></span> 
                         <span class="program ellipsis" v-html="item.TypeTitle"></span> 

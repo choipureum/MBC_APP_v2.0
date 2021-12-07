@@ -10,7 +10,7 @@
 <template>
            <div class="wrap_news" v-show="initRender">
                 <!-- MBC NEWS -->    
-                <div v-show="newsList.main.length > 0" class="visual_top" :data-title="newsList.main[0].Title" v-on:click="clickInterface(newsList.main[0].Link)">
+                <div v-show="newsList.main.length > 0" class="visual_top" v-on:click="clickInterface(newsList.main[0].Link)">
                     <span class="img"><img src="../../static/images/mbcnews_logo.png" alt="MBC 뉴스"></span>
                     <div class="news_top">
                         <a>

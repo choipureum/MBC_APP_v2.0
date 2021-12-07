@@ -12,23 +12,17 @@ import { upBtnFunc, checkMobile, getDateFormat, getParameter, sliderBanner, bann
 Vue.use(VueLazyload, bannerDefaultImg('drama'));
 
 /**
- * @title scroll upbtn directive
-*/
-Vue.directive('scroll', {
-  inserted: function(el, binding) {
-    let f = function(evt) {
-      if (binding.value(evt, el)) {
-        window.removeEventListener('scroll', upBtnFunc());
-      }
-    };
-    window.addEventListener('scroll', upBtnFunc());
-  },
-});
-
-
-/**
  * @title app entry
  */
 var app = new Vue({
+  data: () => ({
+    show: false,
+  }),
+  created(){
+    this.handleScroll = () =>{
+      ($(window).scrollTop()>10)? (this.show = true):(this.show = false);
+    },
+    window.addEventListener('scroll', this.handleScroll);
+  },
   router,
 }).$mount("#siteContent");
