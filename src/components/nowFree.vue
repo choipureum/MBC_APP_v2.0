@@ -133,7 +133,7 @@
                     </div>
 
                     <!-- 검색결과 있을 때  -->
-                    <div class="wrap-program">
+                    <div class="wrap-program" :style="(freeList.List == 0)?{'height': '150px'}:{}">
                         <ul>
                             <li v-on:click="clickInterface('content',item.BroadcastID.toString())" v-for="(item,index) in freeList.List" v-bind:key='index'>
                                 <a>
@@ -147,9 +147,14 @@
                         </ul>
                     </div>                
 
-                    <infinite-loading @infinite="infiniteHandler" spinner="spiral" :identifier="infiniteId">
+                    <infinite-loading 
+                        @infinite="infiniteHandler" 
+                        spinner="spiral" 
+                        :identifier="infiniteId" 
+                        :style="(freeList.List == 0)?{'padding-bottom': '150px'}:{}"
+                    >
                         <div slot="no-results" v-show="freeList.List.length==0">
-                            <span style="display: inline-block;padding-top: 50px;color: #a2a2a2;font-size: 16px;line-height: 29px;background: url(https://m.imbc.com/wiz/mbcapp/v2/static/images/ico-noti.png) no-repeat center top;background-size: 36px;">검색하신 프로그램이 존재하지 않습니다. <br>다른 키워드로 다시 검색해주세요.</span>
+                            <span style="display: inline-block;padding-top: 50px;padding-bottom:150px;color: #a2a2a2;font-size: 16px;line-height: 29px;background: url(https://m.imbc.com/wiz/mbcapp/v2/static/images/ico-noti.png) no-repeat center top;background-size: 36px;">검색하신 프로그램이 존재하지 않습니다. <br>다른 키워드로 다시 검색해주세요.</span>
                         </div>
                         <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">(c)2021 iMBC</div>
                     </infinite-loading>       
@@ -416,24 +421,25 @@ export default{
             const EACH_LEN = 12;
             fetch(url, { method: "get" })
                 .then((resp) => {
-                return resp.json();
+                    return resp.json();
                 })
                 .then((data) => {
-                setTimeout(() => {
-                    if (data.List.length) {
-                    _this.freeList.List = _this.freeList.List.concat(data.List);
-                    $state.loaded();
-                    _this.limit += 1;
-                    if (data.List.length / EACH_LEN < 1) {
-                        $state.complete();
-                    }
-                    } else {
-                    $state.complete();
-                    }
-                }, 1000);
+                    setTimeout(() => {
+                        if (data.List.length) {
+                            _this.freeList.List = _this.freeList.List.concat(data.List);
+                            $state.loaded();
+                            _this.limit += 1;
+                            if (data.List.length / EACH_LEN < 1) {
+                                $state.complete();
+                            }
+                        } 
+                        else {
+                            $state.complete();
+                        }
+                    }, 1000);
                 })
                 .catch((err) => {
-                console.error(err);
+                    console.error(err);
                 });
         },
         changeType() {
