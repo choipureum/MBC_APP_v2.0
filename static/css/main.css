@@ -24,12 +24,12 @@
     .main_top .wrap_txt {
         width: 100%;
         box-sizing: border-box;
-        padding: 40px 0;
+        padding: 50px 0 40px;
         position: absolute;
         bottom: 0;
         text-align: center;
         background: rgb(29,29,28);
-        background: linear-gradient(0, rgba(29,29,28,1) 5%, rgba(29,29,28,0.5) 35%, rgba(29,29,28,0) 76%, rgba(29,29,28,0) 100%);
+        background: linear-gradient(0, rgba(29,29,28,1) 8%, rgba(29,29,28,0.6) 60%, rgba(29,29,28,0) 93%, rgba(29,29,28,0) 100%)
     }
 
     .main_top h2 {

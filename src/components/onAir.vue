@@ -22,6 +22,7 @@
             </div>
 
             <!-- 스포츠 -->
+            <!--
             <div v-if="sportsList.length > 0">
                 <h2 class="b_title">스포츠</h2>
                 <div class="wrapper thumb_list">
@@ -38,7 +39,7 @@
                     </ul>
                 </div>
             </div>
-
+            -->
             <!-- 제작 발표회 -->
             <div v-if="programList.length > 0">
                 <h2 class="b_title">제작발표회</h2>

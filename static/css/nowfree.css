@@ -26,7 +26,7 @@
 .onair-area.type_row.ver01 li .channel{position:absolute;bottom:0;left:4px;font-family:'notokr-bold';font-size:8px;color:#fff;letter-spacing:-.05rem;z-index:10}
 .onair-area.type_row.ver01 li .txt-wrap{padding:7px;box-sizing:border-box}
 .onair-area.type_row.ver01 li .title{height:38px;color:#fff;line-height: 19px;}
-.onair-area li .bar-area{position:absolute;bottom:0;left:0;width:100%;height: 15px;background:rgba(0,0,0,0.5);text-align:left;}
+.onair-area li .bar-area{position:absolute;bottom:0;left:0;width:100%;height: 15px;text-align:left;}
 .onair-area li .bar-area .bar{display:inline-block;width:auto;height:100%;vertical-align:top;background:linear-gradient(to right,#4664e6,#1b3ac3);opacity:.8}
 .onair-area li .bar-area .bar:before{position:absolute;top:0;left:0;padding-left:.6rem;font-family:'notokr-bold';font-size:8px;line-height:1.8rem;color:#fff;letter-spacing:-.05rem}
 .onair-area li .bar-area .bar strong{font-size:0;text-indent:-9999em}

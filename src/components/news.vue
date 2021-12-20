@@ -15,8 +15,8 @@
                     <div class="news_top">
                         <a>
                             <img :src="newsList.main[0].Image" :alt="newsList.main[0].Title" v-on:error="replaceByDefault">
-                            <div class="wrap_txt">
-                                <span class="title ellipsis" v-html="newsList.main[0].Title"></span>
+                            <div class="wrap_txt ellipsis">
+                                <span class="title" v-html="newsList.main[0].Title"></span>
                             </div>
                         </a>
                     </div>
