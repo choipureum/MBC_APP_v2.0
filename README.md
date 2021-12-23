@@ -37,8 +37,8 @@ http://m.imbc.com/notice/privacy.html
 - 코로나 정보 및 예방접종 현황 
 
 # Release
-## v4.0.2 
-- 2021.07.16
-- URL : http://m.imbc.com/wiz/mbcapp/home.html?isAuto=Y
+## v4.5.1 
+- 2021.12.21
+- URL : https://m.imbc.com/wiz/mbcapp/v3/index.html?isAuto=Y#/
 
 
