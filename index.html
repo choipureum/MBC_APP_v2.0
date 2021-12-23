@@ -54,8 +54,9 @@
         <gnb-menu></gnb-menu>
 
         <!-- content -->
-        <router-view></router-view> 
-        
+        <transition  name="page" mode="out-in">
+            <router-view></router-view>
+        </transition>    
     </div>
 </body>
 </html>

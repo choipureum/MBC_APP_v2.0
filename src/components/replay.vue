@@ -87,7 +87,8 @@
                 <div class="slide">
                     <ul>
                         <li class="vod" v-for="(item,index) in bestVODList" v-on:click="clickInterface('content',item.ContentType,item.BroadCastID)" v-bind:key='index'>
-                            <span class="label">다시보기</span>
+                            <span v-if="item.ContentType == 3" class="label">핫클립</span>
+                            <span v-else class="label">다시보기</span>
                             <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.Image" :alt="item.Title"></span>
                             <div class="txt">
                                 <span class="title ellipsis" v-html="item.Title"></span> 

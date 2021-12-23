@@ -1,6 +1,7 @@
 /*sub common*/
 
 h2.b_title{padding: 0 5.5%;margin-bottom: 20px;height: 50px;border-bottom: 1px solid #424242;border-top: 1px solid #424242;background: #313131;font-size: 18px;font-family: 'notokr-bold';letter-spacing: -.9px;line-height: 50px;}
+.wrap_onair h2.b_title{background:rgba(49,49,49,.3)}
 h2.b_title span{font-family: 'notokr-regular';}
 
 /*banner type B*/
@@ -36,7 +37,7 @@ h2.b_title span{font-family: 'notokr-regular';}
 .thumb_list {margin-top: 20px;}
 .thumb_list li{margin-bottom: 16px;overflow: hidden;}
 .thumb_list li .img{display: block;width: 48%;height: 23vw;overflow: hidden;float: left;margin-right: 4%;position: relative;}
-.thumb_list li.vod .img .vod_btn_play{position: absolute;right: 10px;bottom: 11px;content: '';width: 20px;height: 23px;background-size: 20px;}
+.thumb_list li.vod .img:after{position: absolute;right: 10px;bottom: 11px;content: '';width: 20px;height: 23px;background: url(../images/btn_play.png) no-repeat;background-size: 20px;}
 .thumb_list li .img .bar,.type_row li .img .bar{position: absolute;bottom: 0;left: 0;height: 4px;background: #fff;opacity: .6;}
 
 .thumb_list li .title{margin-top: 1px;font-size: 14px;line-height: 20px;}
@@ -83,3 +84,10 @@ h2.b_title span{font-family: 'notokr-regular';}
 .wrap_editor.type_row li:nth-child(2n){margin-right: 0;}
 .wrap_editor .tit_info{font-size: 13px;color: #fff;letter-spacing: -.6px;line-height: 20px;}
 .wrap_editor .btn_refresh{display: block;box-sizing: border-box;padding-left: 12px;margin: 0 auto 20px;width: 200px;height: 40px;line-height: 40px;font-size: 14px;letter-spacing: -.7px;color: #000;text-align: center;background: #fff url(../images/btn_refresh.png) no-repeat 20px center;background-size: 16px;border-radius: 4px;font-family: 'notokr-regular';}
+/* 라우터 트랜지션 */
+.page-enter-active, .page-leave-active{
+    transition: opacity .3s;
+  }
+  .page-enter, .page-leave-to{
+    opacity: 0;
+  }

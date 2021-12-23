@@ -554,3 +554,9 @@
     background-size: 12px;
     padding-left: 2px;
 }
+.page-enter-active, .page-leave-active{
+    transition: opacity .3s;
+  }
+  .page-enter, .page-leave-to{
+    opacity: 0;
+  }
