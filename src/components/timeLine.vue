@@ -29,8 +29,8 @@
                     <li class="swiper-slide" v-for="(item,index) in topBanner" v-on:click="clickInterface('banner', item.Info.Relation.LinkType, item.Info.Relation.LinkURL, item.Info.Title, item.Info.Relation.ActionType,item.Info.Relation.BID,item.Info.Relation.NoticeMsg,item.Info.Relation.ScheduleCode)" :key='index'>              
                         <img :src="item.Info.Image" alt="item.Info.Title">
                         <div class="wrap_txt">
-                            <h2 v-html="item.Info.Title"></h2>
                             <span class="s_info" v-html="item.Info.Desc"></span>
+                            <h2 v-html="item.Info.Title"></h2>                   
                         </div>
                     </li>
                 </ul>

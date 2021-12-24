@@ -1,4 +1,4 @@
-@import url(https://font.imbc.com/noto/noto.css);
+﻿@import url(https://font.imbc.com/noto/noto.css);
 @import url(https://font.imbc.com/mbcnew/mbcnew.css);
 
 body,button,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,select,table,td,textarea,th,ul{margin:0;padding:0;font-weight: normal;}
@@ -30,7 +30,7 @@ body{background:#20201e;color:#fff;font-size:16px;letter-spacing:-.075em;font-fa
 /*common css*/
 body img {width: 100%}
 
-.gnb{width: 100%;position: fixed;top: 0;padding:2px 0 0;height: 46px;background-color: rgba(0, 0, 0, 0.6);line-height: 46px;border-bottom: 1px solid rgba(255, 255, 255, 0.1);z-index: 99;}
+.gnb{width: 100%;position: fixed;top: 0;padding:2px 0 0;height: 46px;background-color: rgba(0, 0, 0, 0.4);line-height: 46px;border-bottom: 1px solid rgba(255, 255, 255, 0.1);z-index: 99;}
 .gnb .slide{overflow-x: auto;width: 100%;padding: 0 2%;box-sizing: border-box;-webkit-overflow-scrolling: touch;}
 .gnb .slide::-webkit-scrollbar {display: none; padding-right: 2%; /* Chrome, Safari, Opera*/}
 .gnb .slide ul{overflow: hidden;margin: 0 auto;display: flex;justify-content: center;}
