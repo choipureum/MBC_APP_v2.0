@@ -11,12 +11,17 @@ Vue.component('gnb-menu', {
             <nav class="gnb" ref="gnb">
                 <div class="slide">
                     <ul ref="ul">
-                        <li v-on:click="stateChange(index)" v-for="(item,index) in GnbMenu" v-if="item.state=='Y'" :class="{'on': index == idx}">
+                        <li v-for="(item,index) in GnbMenu" v-if="item.state=='Y'" :class="{'on': index == idx}">
                             <router-link :to="item.link" v-if='item.weblinkpos=="GNB"'>
-                                <a v-html="item.menuName" style="white-space:nowrap"></a>
+                                <a v-on:click="stateChange(index)"  v-html="item.menuName" style="white-space:nowrap"></a>
                             </router-link>
                             <a v-else v-on:click="clickGNBInterface(item.weblinkpos, item.link, item.menuName)" v-html="item.menuName"></a>
                         </li>
+                        <!--테스트 정보
+                        <li v-on:click="stateChange(6)">
+                            <a style="white-space:nowrap" v-on:click="clickGNBInterface('WEB', 'https://imnews.imbc.com/issue/vote2022/m/main_m.html', '2022 대선')">2022 대선</a>
+                        </li>
+                        -->
                     </ul>                
                 </div>
             </nav>
