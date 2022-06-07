@@ -8,231 +8,374 @@
  */
 -->
 <template>
-    <div class='wrap_vod' v-show="initRender">
-       <!-- 상단 TOP 배너-->
-        <div class="wrap_banner" v-if="topBanner.length > 0" v-on:click="clickInterface('banner', topBanner[0].Info.Relation.BID, topBanner[0].Info.Relation.LinkType, topBanner[0].Info.Relation.LinkURL, topBanner[0].Info.Relation.NoticeMsg)">
-            <h2 class="blind">홍보 배너</h2>
-            <a v-lazy-container="{ selector: 'img' }">
-            <img :data-src="topBanner[0].Info.Image" :alt="topBanner[0].Info.Title">
-                <div class="banner_txt">
-                    <p class="title" v-html="topBanner[0].Info.Title"></p>
-                    <p class="date" v-html="topBanner[0].Info.Desc"></p>
-                </div>
-            </a>
+  <div class="wrap_vod" v-show="initRender">
+    <!-- 상단 TOP 배너-->
+    <div
+      class="wrap_banner"
+      v-if="topBanner.length > 0"
+      v-on:click="
+        clickInterface(
+          'banner',
+          topBanner[0].Info.Relation.BID,
+          topBanner[0].Info.Relation.LinkType,
+          topBanner[0].Info.Relation.LinkURL,
+          topBanner[0].Info.Relation.NoticeMsg
+        )
+      "
+    >
+      <h2 class="blind">홍보 배너</h2>
+      <a>
+        <img :src="topBanner[0].Info.Image" :alt="topBanner[0].Info.Title" />
+        <div class="banner_txt">
+          <p class="title" v-html="topBanner[0].Info.Title"></p>
+          <p class="date" v-html="topBanner[0].Info.Desc"></p>
         </div>
-
-        <!-- 프로그램 프로모션 -->
-        <section v-if="programPromotionList.List.length != 0" class="wrap_promo"  :style="{'background-image':'url('+programPromotionList.promotionImage+')'}" style="background-size:100%">
-            <button type="button" class="close-promo">접기</button>
-            <div class="promo-list">
-                <div class="type_row" id="promoWrap">
-                    <div class="slide">
-                        <ul>
-                            <li v-for="(item,index) in programPromotionList.List" v-on:click="clickInterface('promo',item.ContentType, item.URL, item.BroadCastID)" v-bind:key='index'>
-                                <a>
-                                    <span class="img" v-lazy-container="{ selector: 'img' }">
-                                        <img :data-src="item.Image" :alt="item.Title">
-                                    </span>
-                                    <p class="txt ellipsis2" v-html="item.Title" :style="{color:programPromotionList.promotionThemaColor}"></p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 시청중인 프로그램 리스트 -->
-        <div v-if="userSeamList.List.length > 0">
-            <h2 class="b_title" v-if="userSeamList.username!=''">'{{userSeamList.username}}'<span>님이 시청 중인 콘텐츠</span></h2>
-            <h2 class="b_title" v-else><span>당신이 시청 중인 콘텐츠</span></h2>
-            <div class="type_row" id="row1">
-                <div class="slide">
-                    <ul>
-                        <li class="vod" v-on:click="clickInterface('userSeam',item.VodType, item.ContentId, item.ProgramId)" v-for="(item,index) in userSeamList.List" v-bind:key='index'>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.ContentImg" :alt="item.ProgramTitle"><span class="bar" :style="{width: ((item.MediaTime/item.TotalDuration)*100) +'%'}"></span></span>
-                            <div class="txt">
-                                <span class="title ellipsis" v-html="item.ContentTitle"></span> 
-                                <span class="program">{{item.ProgramTitle}}  {{parseInt(item.ContentNumber)}}회</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- MBC 꿀잼방송 -->
-        <div v-if="newestVODList.length > 0">
-            <h2 class="b_title" v-if="userSeamList.username!=''">'{{userSeamList.username}}'<span>님이 놓친 어제 MBC 꿀잼 방송</span></h2>  
-            <h2 class="b_title" v-else><span>당신이 놓친 어제 MBC 꿀잼 방송</span></h2>       
-            <div class="type_row" id="row2">
-                <div class="slide">
-                    <ul>
-                        <li class="vod" v-for="(item,index) in newestVODList" v-on:click="clickInterface('content',item.ContentType,item.BroadCastID)" v-bind:key='index'>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.Image" :alt="item.Title"></span>
-                            <div class="txt">
-                                <span class="title ellipsis">{{item.Title}}</span> 
-                                <span class="program">{{item.ProgramTitle}} {{item.ContentNumber}}회</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- 주간 BEST -->
-        <div v-if="bestVODList.length > 0">
-            <h2 class="b_title">주간 BEST</h2>
-            <div class="type_row" id="row3">
-                <div class="slide">
-                    <ul>
-                        <li class="vod" v-for="(item,index) in bestVODList" v-on:click="clickInterface('content',item.ContentType,item.BroadCastID)" v-bind:key='index'>
-                            <span v-if="item.ContentType == 3" class="label">핫클립</span>
-                            <span v-else class="label">다시보기</span>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.Image" :alt="item.Title"></span>
-                            <div class="txt">
-                                <span class="title ellipsis" v-html="item.Title"></span> 
-                                <span class="program" v-html="item.ProgramTitle"></span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- 예고 -->
-        <div v-if="previewVODList.length > 0">
-            <h2 class="b_title">예고</h2>
-            <div class="type_row" id="row4">
-                <div class="slide">
-                    <ul>
-                        <li class="vod" v-for="(item,index) in previewVODList" v-on:click="clickInterface('content', 2 ,item.Info.Relation.BID)" v-bind:key='index'>
-                            <span class="label">예고</span>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.Info.Relation.ContentImage" :alt="item.Info.Title"></span>
-                            <div class="txt">
-                                <span class="title ellipsis" v-html="item.Info.Title"></span> 
-                                <span class="program">{{item.Info.Program}} {{item.Info.Relation.ContentNumber}}회</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Editor's Pick -->
-        <div v-if="editorPickList.List.length > 0" class="wrap_editor type_row">
-            <h2 class="b_title">Editor's pick</h2>
-            <span class="tit_info" v-html="editorPickList.List[editorPickList.editorIdx].EditorTitle"></span>
-            <ul>
-                <li class="vod" v-for="(item,index) in editorPickList.List[editorPickList.editorIdx].List" v-on:click="clickInterface('editorPick', item.ContentType ,item.BID)" v-bind:key='index'>
-                    <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.Image" :alt="item.Title"></span>
-                    <div class="txt">
-                        <span class="title ellipsis" v-html="item.Title"></span> 
-                        <span class="program"></span>
-                    </div>
-                </li>
-            </ul>
-            <button v-on:click="editorIdxCnt" type="button" class="btn_refresh" :style="{ backgroundImage: 'url('+'./static/images/btn_refresh.png'+')' }">다음 콘텐츠 보기 {{(editorPickList.editorIdx+1)}}/{{editorPickList.totalCnt}}</button>
-        </div>
-
-        <!-- 현장스케치 -->
-        <div v-if="sketchVODList.length > 0">
-            <h2 class="b_title">현장스케치</h2>
-            <div class="type_row" id="row5">
-                <div class="slide">
-                    <ul>
-                        <li class="vod" v-for="(item,index) in sketchVODList" v-on:click="clickInterface('content', 5 ,item.Info.Relation.BID)" v-bind:key='index'>
-                            <span class="label">현장스케치</span>
-                            <span class="img" v-lazy-container="{ selector: 'img' }"><img :data-src="item.Info.Relation.ContentImage" :alt="item.Info.Title"></span>
-                            <div class="txt">
-                                <span class="title ellipsis" v-html="item.Info.Title"></span> 
-                                <span class="program">{{item.Info.Program}} {{item.Info.Relation.ContentNumber}}회</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- 구작 추천 -->
-        <div v-if="oldRecommendVODList.List.length > 0" class="wrap_legend">
-            <h2 class="b_title">구작추천</h2>
-            <div class="type_row type2" id="row6">
-                <div class="slide">
-                    <ul>
-                        <li v-for="(item,index) in oldRecommendVODList.List" v-on:click="clickInterface('legend',item.BID)" v-bind:key='index'>
-                            <a>
-                                <span class="img" v-lazy-container="{ 
-                                    selector: 'img', 
-                                    error: movieDefaultImg, 
-                                    loading: movieDefaultImg 
-                                }">
-                                <img :data-src="item.Image" :alt="item.Title"></span>
-                                <span class="title ellipsis">{{item.Title.substring(1)}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+      </a>
     </div>
+
+    <!-- 프로그램 프로모션 -->
+    <section
+      v-if="programPromotionList.List.length != 0"
+      class="wrap_promo"
+      :style="{
+        'background-image': 'url(' + programPromotionList.promotionImage + ')',
+      }"
+      style="background-size: 100%"
+    >
+      <button type="button" class="close-promo">접기</button>
+      <div class="promo-list">
+        <div class="type_row" id="promoWrap">
+          <div class="slide">
+            <ul>
+              <li
+                v-for="(item, index) in programPromotionList.List"
+                v-on:click="
+                  clickInterface(
+                    'promo',
+                    item.ContentType,
+                    item.URL,
+                    item.BroadCastID
+                  )
+                "
+                v-bind:key="index"
+              >
+                <a>
+                  <span class="img" v-lazy-container="{ selector: 'img' }">
+                    <img :data-src="item.Image" :alt="item.Title" />
+                  </span>
+                  <p
+                    class="txt ellipsis2"
+                    v-html="item.Title"
+                    :style="{ color: programPromotionList.promotionThemaColor }"
+                  ></p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 시청중인 프로그램 리스트 -->
+    <div v-if="userSeamList.List.length > 0">
+      <h2 class="b_title" v-if="userSeamList.username != ''">
+        '{{ userSeamList.username }}'<span>님이 시청 중인 콘텐츠</span>
+      </h2>
+      <h2 class="b_title" v-else><span>당신이 시청 중인 콘텐츠</span></h2>
+      <div class="type_row" id="row1">
+        <div class="slide">
+          <ul>
+            <li
+              class="vod"
+              v-on:click="
+                clickInterface(
+                  'userSeam',
+                  item.VodType,
+                  item.ContentId,
+                  item.ProgramId
+                )
+              "
+              v-for="(item, index) in userSeamList.List"
+              v-bind:key="index"
+            >
+              <span class="img" v-lazy-container="{ selector: 'img' }"
+                ><img
+                  :data-src="item.ContentImg"
+                  :alt="item.ProgramTitle" /><span
+                  class="bar"
+                  :style="{
+                    width: (item.MediaTime / item.TotalDuration) * 100 + '%',
+                  }"
+                ></span
+              ></span>
+              <div class="txt">
+                <span class="title ellipsis" v-html="item.ContentTitle"></span>
+                <span class="program"
+                  >{{ item.ProgramTitle }}
+                  {{ parseInt(item.ContentNumber) }}회</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MBC 꿀잼방송 -->
+    <div v-if="newestVODList.length > 0">
+      <h2 class="b_title" v-if="userSeamList.username != ''">
+        '{{ userSeamList.username }}'<span>님이 놓친 어제 MBC 꿀잼 방송</span>
+      </h2>
+      <h2 class="b_title" v-else>
+        <span>당신이 놓친 어제 MBC 꿀잼 방송</span>
+      </h2>
+      <div class="type_row" id="row2">
+        <div class="slide">
+          <ul>
+            <li
+              class="vod"
+              v-for="(item, index) in newestVODList"
+              v-on:click="
+                clickInterface('content', item.ContentType, item.BroadCastID)
+              "
+              v-bind:key="index"
+            >
+              <span class="img" v-lazy-container="{ selector: 'img' }"
+                ><img :data-src="item.Image" :alt="item.Title"
+              /></span>
+              <div class="txt">
+                <span class="title ellipsis">{{ item.Title }}</span>
+                <span class="program"
+                  >{{ item.ProgramTitle }} {{ item.ContentNumber }}회</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 주간 BEST -->
+    <div v-if="bestVODList.length > 0">
+      <h2 class="b_title">주간 BEST</h2>
+      <div class="type_row" id="row3">
+        <div class="slide">
+          <ul>
+            <li
+              class="vod"
+              v-for="(item, index) in bestVODList"
+              v-on:click="
+                clickInterface('content', item.ContentType, item.BroadCastID)
+              "
+              v-bind:key="index"
+            >
+              <span v-if="item.ContentType == 3" class="label">핫클립</span>
+              <span v-else class="label">다시보기</span>
+              <span class="img" v-lazy-container="{ selector: 'img' }"
+                ><img :data-src="item.Image" :alt="item.Title"
+              /></span>
+              <div class="txt">
+                <span class="title ellipsis" v-html="item.Title"></span>
+                <span class="program" v-html="item.ProgramTitle"></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 예고 -->
+    <div v-if="previewVODList.length > 0">
+      <h2 class="b_title">예고</h2>
+      <div class="type_row" id="row4">
+        <div class="slide">
+          <ul>
+            <li
+              class="vod"
+              v-for="(item, index) in previewVODList"
+              v-on:click="clickInterface('content', 2, item.Info.Relation.BID)"
+              v-bind:key="index"
+            >
+              <span class="label">예고</span>
+              <span class="img" v-lazy-container="{ selector: 'img' }"
+                ><img
+                  :data-src="item.Info.Relation.ContentImage"
+                  :alt="item.Info.Title"
+              /></span>
+              <div class="txt">
+                <span class="title ellipsis" v-html="item.Info.Title"></span>
+                <span class="program"
+                  >{{ item.Info.Program }}
+                  {{ item.Info.Relation.ContentNumber }}회</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editor's Pick -->
+    <div v-if="editorPickList.List.length > 0" class="wrap_editor type_row">
+      <h2 class="b_title">Editor's pick</h2>
+      <span
+        class="tit_info"
+        v-html="editorPickList.List[editorPickList.editorIdx].EditorTitle"
+      ></span>
+      <ul>
+        <li
+          class="vod"
+          v-for="(item, index) in editorPickList.List[editorPickList.editorIdx]
+            .List"
+          v-on:click="clickInterface('editorPick', item.ContentType, item.BID)"
+          v-bind:key="index"
+        >
+          <span class="img" v-lazy-container="{ selector: 'img' }"
+            ><img :data-src="item.Image" :alt="item.Title"
+          /></span>
+          <div class="txt">
+            <span class="title ellipsis" v-html="item.Title"></span>
+            <span class="program"></span>
+          </div>
+        </li>
+      </ul>
+      <button
+        v-on:click="editorIdxCnt"
+        type="button"
+        class="btn_refresh"
+        :style="{
+          backgroundImage: 'url(' + './static/images/btn_refresh.png' + ')',
+        }"
+      >
+        다음 콘텐츠 보기 {{ editorPickList.editorIdx + 1 }}/{{
+          editorPickList.totalCnt
+        }}
+      </button>
+    </div>
+
+    <!-- 현장스케치 -->
+    <div v-if="sketchVODList.length > 0">
+      <h2 class="b_title">현장스케치</h2>
+      <div class="type_row" id="row5">
+        <div class="slide">
+          <ul>
+            <li
+              class="vod"
+              v-for="(item, index) in sketchVODList"
+              v-on:click="clickInterface('content', 5, item.Info.Relation.BID)"
+              v-bind:key="index"
+            >
+              <span class="label">현장스케치</span>
+              <span class="img" v-lazy-container="{ selector: 'img' }"
+                ><img
+                  :data-src="item.Info.Relation.ContentImage"
+                  :alt="item.Info.Title"
+              /></span>
+              <div class="txt">
+                <span class="title ellipsis" v-html="item.Info.Title"></span>
+                <span class="program"
+                  >{{ item.Info.Program }}
+                  {{ item.Info.Relation.ContentNumber }}회</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 구작 추천 -->
+    <div v-if="oldRecommendVODList.List.length > 0" class="wrap_legend">
+      <h2 class="b_title">구작추천</h2>
+      <div class="type_row type2" id="row6">
+        <div class="slide">
+          <ul>
+            <li
+              v-for="(item, index) in oldRecommendVODList.List"
+              v-on:click="clickInterface('legend', item.BID)"
+              v-bind:key="index"
+            >
+              <a>
+                <span
+                  class="img"
+                  v-lazy-container="{
+                    selector: 'img',
+                    error: movieDefaultImg,
+                    loading: movieDefaultImg,
+                  }"
+                >
+                  <img :data-src="item.Image" :alt="item.Title"
+                /></span>
+                <span class="title ellipsis">{{
+                  item.Title.substring(1)
+                }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { getDateFormat, sliderType, getCookie } from "../common/common.js";
 
-export default{
-  props:['userAgent'],
-  data(){
-    return{
-        initRender:false,
-        movieDefaultImg:"https://m.imbc.com/wiz/mbcapp/v2/static/images/default_thum_vod_movie_list.png",
-        topBanner: [], // 상단배너
-        programPromotionList: {
-            promotionTitle: "",
-            promotionBid: "",
-            promotionImage: "",
-            promotionThemaColor:"#bababa",
-            List:[]
-        },
-        userSeamList: {
-            username: "",
-            List:[]
-        }, 
-        newestVODList: [], // '철수'님이 놓친 어제 MBC 꿀잼 방송
-        bestVODList: [], // 주간BEST
-        previewVODList: [], // 예고
-        sketchVODList: [], // 현장스케치
-        editorPickList: {
-            editorIdx : 0,
-            totalCnt : 0,
-            List: []
-        }, // Editor's Pick
-        oldRecommendVODList: {
-            Thema: "",
-            Link: "",
-            Channel: "",
-            List: [],
-        }, // 구작추천
-    }
+export default {
+  props: ["userAgent"],
+  data() {
+    return {
+      initRender: false,
+      movieDefaultImg:
+        "https://m.imbc.com/wiz/mbcapp/v2/static/images/default_thum_vod_movie_list.png",
+      topBanner: [], // 상단배너
+      programPromotionList: {
+        promotionTitle: "",
+        promotionBid: "",
+        promotionImage: "",
+        promotionThemaColor: "#bababa",
+        List: [],
+      },
+      userSeamList: {
+        username: "",
+        List: [],
+      },
+      newestVODList: [], // '철수'님이 놓친 어제 MBC 꿀잼 방송
+      bestVODList: [], // 주간BEST
+      previewVODList: [], // 예고
+      sketchVODList: [], // 현장스케치
+      editorPickList: {
+        editorIdx: 0,
+        totalCnt: 0,
+        ChannelID: 0,
+        List: [],
+      }, // Editor's Pick
+      oldRecommendVODList: {
+        Thema: "",
+        Link: "",
+        Channel: "",
+        List: [],
+      }, // 구작추천
+    };
   },
+  beforeMount() {},
   mounted() {
-    this.userSeamList.username = getCookie('IMBCNAME');
+    //30분이상 행동없으면 리로딩(컴포넌트 공통)
+    $("meta[name='refreshApp']").attr("content", "1800;url=" + location.href);
+
+    this.userSeamList.username = getCookie("IMBCNAME");
     var _that = this;
     _that.Init();
     this.UiFlicking();
-
   },
   updated() {
-    this.$nextTick(() =>{
+    this.$nextTick(() => {
       this.UiFlicking();
       this.initRender = true;
     });
   },
-  watch:{
-  },
-  computed: {
-  },
+  watch: {},
+  computed: {},
   methods: {
     Init() {
       try {
@@ -247,15 +390,15 @@ export default{
         this.InitOldRecommendVODData();
       } catch (e) {}
     },
-    UiFlicking(){
+    UiFlicking() {
       // 프로모션
-      sliderType('#promoWrap',6);
-      $('.close-promo').click(function(){
-          $(this).parent().hide();
+      sliderType("#promoWrap", 6);
+      $(".close-promo").click(function () {
+        $(this).parent().hide();
       });
       // 가로 플리킹 스크롤
       for (var i = 0; i < 7; i++) {
-          sliderType('#row' + (i + 1), 10);
+        sliderType("#row" + (i + 1), 10);
       }
     },
     InitTopBannerData() {
@@ -346,7 +489,7 @@ export default{
         crossDomain: true,
         xhrFields: { withCredentials: true },
         success: function (o) {
-          if(o.SeamList.length > 0)      
+          if (o.SeamList.length > 0)
             $.each(o.SeamList, function (index, item) {
               _this.userSeamList.List.push(item);
             });
@@ -463,6 +606,7 @@ export default{
         timeout: 10000,
         success: function (o) {
           if (o.length > 0) {
+            _this.editorPickList.ChannelID = o[0].ChannelID;
             _this.editorPickList.List = o;
           }
           _this.editorPickList.editorIdx = 0;
@@ -497,14 +641,13 @@ export default{
     urlLink(link) {
       location.href = link;
     },
-    editorIdxCnt(){
+    editorIdxCnt() {
       var _this = this;
-      if(_this.editorPickList.editorIdx >= 7){
+      if (_this.editorPickList.editorIdx >= 7) {
         _this.editorPickList.editorIdx = 0;
-      } 
-      else{
-        _this.editorPickList.editorIdx+=1;
-      } 
+      } else {
+        _this.editorPickList.editorIdx += 1;
+      }
     },
     clickInterface(...args) {
       /*
@@ -515,39 +658,68 @@ export default{
       if (this.userAgent == "android") {
         switch (args[0]) {
           case "banner":
-            if (args[4] != "") {alert(args[4]);}
-            else if(args[1] == '0'){window.iMBCHandler.setAppBanner(args[2], args[3], '다시보기');}
-            else{window.iMBCHandler.setAppContent('VOD', args[1], 'N');}
+            if (args[4] != "") {
+              alert(args[4]);
+            } else if (args[1] == "0") {
+              window.iMBCHandler.setAppBanner(args[2], args[3], "다시보기");
+            } else {
+              window.iMBCHandler.setAppContent("VOD", args[1], "N");
+            }
             break;
 
           case "promo":
-            if(args[1] == 1){window.iMBCHandler.setAppContent('VOD', args[3], 'N');}
-            else if(args[1] == 3){window.iMBCHandler.setAppContent('Clip', args[3], 'N');}
-            else if(args[1] == 5){window.iMBCHandler.setAppContent('Sketch', args[3], 'N');}
-            else{window.iMBCHandler.setAppBanner("APP_LINK",args[2],'연예');}  
+            if (args[1] == 1) {
+              window.iMBCHandler.setAppContent("VOD", args[3], "N");
+            } else if (args[1] == 3) {
+              window.iMBCHandler.setAppContent("Clip", args[3], "N");
+            } else if (args[1] == 5) {
+              window.iMBCHandler.setAppContent("Sketch", args[3], "N");
+            } else {
+              args[2] =
+                args[2].substring(0, 2) == "//" ? "https:" + args[2] : args[2];
+              window.iMBCHandler.setAppBanner("APP_LINK", args[2], "연예");
+            }
             break;
 
           case "userSeam":
             var type;
-            if(args[1] == "MOVIE"){type="Movie"; window.iMBCHandler.setAppContentETC(type, args[2], args[3]);}
-            else if(args[1] == "ABROAD"){type="Overseas"; window.iMBCHandler.setAppContentETC(type, args[2], args[3]);}
-            else{type="VOD"; window.iMBCHandler.setAppContent(type, args[2], 'N');}
+            if (args[1] == "MOVIE") {
+              type = "Movie";
+              window.iMBCHandler.setAppContentETC(type, args[2], args[3]);
+            } else if (args[1] == "ABROAD") {
+              type = "Overseas";
+              window.iMBCHandler.setAppContentETC(type, args[2], args[3]);
+            } else {
+              type = "VOD";
+              window.iMBCHandler.setAppContent(type, args[2], "N");
+            }
             break;
-          
+
           case "content":
-            if(args[1] == 1){window.iMBCHandler.setAppContent('VOD', args[2], 'N');}
-            else if(args[1] == 2){window.iMBCHandler.setAppContent('Preview', args[2], 'N');}
-            else if(args[1] == 3){window.iMBCHandler.setAppContent('Clip', args[2], 'N');}
-            else if(args[1] == 5){window.iMBCHandler.setAppContent('Sketch', args[2], 'N');}
+            if (args[1] == 1) {
+              window.iMBCHandler.setAppContent("VOD", args[2], "N");
+            } else if (args[1] == 2) {
+              window.iMBCHandler.setAppContent("Preview", args[2], "N");
+            } else if (args[1] == 3) {
+              window.iMBCHandler.setAppContent("Clip", args[2], "N");
+            } else if (args[1] == 5) {
+              window.iMBCHandler.setAppContent("Sketch", args[2], "N");
+            }
             break;
 
           case "editorPick":
-            if(args[1] == 'Special') args[1] = 'Sketch';
-            window.iMBCHandler.setAppContent(args[1], args[2], 'N');
+            if (args[1] == "Special") {
+              args[1] = "Sketch";
+              window.iMBCHandler.setAppContent(args[1], args[2], "N");
+            } else if (this.editorPickList.ChannelID == 4) {
+              window.iMBCHandler.setAppContentETC("Movie", args[2]);
+            } else {
+              window.iMBCHandler.setAppContent(args[1], args[2], "N");
+            }
             break;
 
           case "legend":
-            window.iMBCHandler.setAppContent('VOD', args[1], 'N');
+            window.iMBCHandler.setAppContent("VOD", args[1], "N");
             break;
         }
       }
@@ -556,40 +728,166 @@ export default{
         var msg;
         switch (args[0]) {
           case "banner":
-            if (args[4] != "") {alert(args[4]); }
-            if(args[1] == '0'){msg = { 'setAppBanner': { 'linkType': args[2], 'link': args[3], 'title': '다시보기' } };}
-            else{msg = {setAppContent: { contentType: 'VOD', contentId: args[1], isFree:'N' },};}
+            if (args[4] != "") {
+              alert(args[4]);
+            }
+            if (args[1] == "0") {
+              msg = {
+                setAppBanner: {
+                  linkType: args[2],
+                  link: args[3],
+                  title: "다시보기",
+                },
+              };
+            } else {
+              msg = {
+                setAppContent: {
+                  contentType: "VOD",
+                  contentId: args[1],
+                  isFree: "N",
+                },
+              };
+            }
             break;
 
           case "promo":
-            if(args[1] == 1){msg = {setAppContent: { contentType: 'VOD', contentId: args[3], isFree:'N' },};}
-            else if(args[1] == 3) {msg = {setAppContent: { contentType: 'Clip', contentId: args[3], isFree:'N' },};}
-            else if(args[1] == 5) {msg = {setAppContent: { contentType: 'Sketch', contentId: args[3], isFree:'N' },};}
-            else{msg = { 'setAppBanner': { 'linkType': "APP_LINK", 'link': args[2], 'title': '연예' } };}         
-            console.log(msg);        
+            if (args[1] == 1) {
+              msg = {
+                setAppContent: {
+                  contentType: "VOD",
+                  contentId: args[3],
+                  isFree: "N",
+                },
+              };
+            } else if (args[1] == 3) {
+              msg = {
+                setAppContent: {
+                  contentType: "Clip",
+                  contentId: args[3],
+                  isFree: "N",
+                },
+              };
+            } else if (args[1] == 5) {
+              msg = {
+                setAppContent: {
+                  contentType: "Sketch",
+                  contentId: args[3],
+                  isFree: "N",
+                },
+              };
+            } else {
+              args[2] =
+                args[2].substring(0, 2) == "//" ? "https:" + args[2] : args[2];
+              msg = {
+                setAppBanner: {
+                  linkType: "APP_LINK",
+                  link: args[2],
+                  title: "연예뉴스",
+                },
+              };
+            }
             break;
-            
+
           case "userSeam":
             var type;
-            if(args[1] == "MOVIE"){type="Movie"; msg = {setAppContentETC: { contentType: type, contentId: args[2], programId: args[3]},};}
-            else if(args[1] == "ABROAD"){type="Overseas"; msg = {setAppContentETC: { contentType: type, contentId: args[2], programId: args[3]},};}
-            else{type="VOD";  msg = {setAppContent: { contentType: type, contentId: args[2], isFree:'N'},};}
+            if (args[1] == "MOVIE") {
+              type = "Movie";
+              msg = {
+                setAppContentETC: {
+                  contentType: type,
+                  contentId: args[2],
+                  programId: args[3],
+                },
+              };
+            } else if (args[1] == "ABROAD") {
+              type = "Overseas";
+              msg = {
+                setAppContentETC: {
+                  contentType: type,
+                  contentId: args[2],
+                  programId: args[3],
+                },
+              };
+            } else {
+              type = "VOD";
+              msg = {
+                setAppContent: {
+                  contentType: type,
+                  contentId: args[2],
+                  isFree: "N",
+                },
+              };
+            }
             break;
 
           case "content":
-            if(args[1] == 1){msg = {setAppContent: { contentType: 'VOD', contentId: args[2], isFree:'N' },};}
-            else if(args[1] == 2){msg = {setAppContent: { contentType: 'Preview', contentId: args[2], isFree:'N' },};}
-            else if(args[1] == 3) {msg = {setAppContent: { contentType: 'Clip', contentId: args[2], isFree:'N' },};}
-            else if(args[1] == 5) {msg = {setAppContent: { contentType: 'Sketch', contentId: args[2], isFree:'N' },};}
-            break;
-          
-          case "editorPick":
-            if(args[1] == 'Special') args[1] = 'Sketch';
-            msg = {setAppContent: { contentType: args[1] ,contentId: args[2], isFree:'N' },};  
+            if (args[1] == 1) {
+              msg = {
+                setAppContent: {
+                  contentType: "VOD",
+                  contentId: args[2],
+                  isFree: "N",
+                },
+              };
+            } else if (args[1] == 2) {
+              msg = {
+                setAppContent: {
+                  contentType: "Preview",
+                  contentId: args[2],
+                  isFree: "N",
+                },
+              };
+            } else if (args[1] == 3) {
+              msg = {
+                setAppContent: {
+                  contentType: "Clip",
+                  contentId: args[2],
+                  isFree: "N",
+                },
+              };
+            } else if (args[1] == 5) {
+              msg = {
+                setAppContent: {
+                  contentType: "Sketch",
+                  contentId: args[2],
+                  isFree: "N",
+                },
+              };
+            }
             break;
 
+          case "editorPick":
+            if (args[1] == "Special") {
+              args[1] = "Sketch";
+              msg = {
+                setAppContent: {
+                  contentType: args[1],
+                  contentId: args[2],
+                  isFree: "N",
+                },
+              };
+            } else if (this.editorPickList.ChannelID == 4) {
+              msg = {
+                setAppContentETC: { contentType: "Movie", programId: args[2] },
+              };
+            } else {
+              msg = {
+                setAppContent: {
+                  contentType: args[1],
+                  contentId: args[2],
+                  isFree: "N",
+                },
+              };
+            }
+            break;
           case "legend":
-            msg = {setAppContent: { contentType: 'VOD' ,contentId: args[1], isFree:'N' },};
+            msg = {
+              setAppContent: {
+                contentType: "VOD",
+                contentId: args[1],
+                isFree: "N",
+              },
+            };
             break;
         }
         window.webkit.messageHandlers.iMBCHandler.postMessage(msg);

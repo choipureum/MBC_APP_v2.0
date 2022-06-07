@@ -64,9 +64,6 @@ class PreviewPlayer {
                         that.player.addEventListener('loadeddata', event => {
                             $('#' + that.id + "_img").fadeTo(300, 0);
                         })
-                        //that.player.addEventListener('loadeddata', function () {
-                        //    $('#' + that.id + "_img").fadeTo(300, 0);
-                        //});
                         that.player.src = data.MediaURL;
                         var playPromise = that.player.play();
 

@@ -28,14 +28,14 @@
             <h3>예방접종 현황<span class="standard">({{Vaccine.StateDate}} 기준)</span></h3>
             <div class="c-number" :style="{ backgroundImage: 'url('+'./static/images/bg-covid2.jpg'+')' }">
                 <div>
-                    <strong>1회차 접종</strong>
-                    <span class="num">{{Vaccine.FirstTotal}}</span>
-                    <span class="num">({{Vaccine.FirstToday}})</span>
-                </div>
-                <div>
                     <strong>2회차 접종</strong>
                     <span class="num">{{Vaccine.SecondTotal}}</span>
                     <span class="num">({{Vaccine.SecondToday}})</span>
+                </div>
+                <div>
+                    <strong>3회차 접종</strong>
+                    <span class="num">{{Vaccine.ThirdTotal}}</span>
+                    <span class="num">({{Vaccine.ThirdToday}})</span>
                 </div>
             </div>
         </div>
@@ -56,8 +56,10 @@ export default{
              Vaccine: {
                  FirstTotal: 0,
                  SecondTotal: 0,
+                 ThirdTotal: 0,
                  FirstToday: 0,
                  SecondToday: 0,
+                 ThirdToday: 0,
                  StateDate: ""
              }
         }
@@ -147,8 +149,10 @@ export default{
                         var n = k.length - 1;
                         _this.Vaccine.FirstTotal = _this.NumberChange(k[n].totalFirstCnt);
                         _this.Vaccine.SecondTotal = _this.NumberChange(k[n].totalSecondCnt);
+                        _this.Vaccine.ThirdTotal = _this.NumberChange(k[n].totalThirdCnt);
                         _this.Vaccine.FirstToday = _this.NumberChange(k[n].firstCnt);
                         _this.Vaccine.SecondToday = _this.NumberChange(k[n].secondCnt);
+                        _this.Vaccine.ThirdToday = _this.NumberChange(k[n].thirdCnt);
                         _this.Vaccine.StateDate = parseInt(String(k[n].baseDate).substr(5, 2)) + "월 " + parseInt(String(k[n].baseDate).substr(8, 2)) + "일 " + parseInt(String(k[n].baseDate).substr(11, 2)) + "시";
                     }
                 }

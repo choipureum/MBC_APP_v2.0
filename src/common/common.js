@@ -42,7 +42,6 @@ export const checkMobile = () => {
     var varUA = navigator.userAgent.toLowerCase();
 
     if (varUA.indexOf("android") > -1) {
-        //안드로이드
         return "android";
     } else if (
         varUA.indexOf("iphone") > -1 ||
@@ -110,7 +109,7 @@ export const getParameter = (sname) => {
  *
  */
 export const gnbHeader = () => {
-    scrollX('.gnb', 23, 2);
+    scrollX('.gnb', 16, 2);
 };
 export const gnbMove = () => {
     scrollCenter('.gnb .slide', $('.gnb ul li.on'));
